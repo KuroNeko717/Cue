@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>541</width>
+    <height>358</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(35, 39, 42);</string>
+  </property>
+  <widget class="QFrame" name="frame_outer_notes_view">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>541</width>
+     <height>361</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(231, 210, 255);
+background-color: rgb(0, 0, 0);
+background-color: rgb(35, 39, 42);
+background-color: rgb(35, 39, 42);
+background-color: rgb(35, 39, 42);
+background-color: rgb(35, 39, 42);
+background-color: rgb(44, 47, 51);
+background-color: rgb(44, 47, 51);
+background-color: rgb(44, 47, 51);</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <widget class="QFrame" name="frame_inner_notes_view">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>481</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(35, 39, 42);
+background-color: rgb(44, 47, 51);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_datecreated_notes_view">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>10</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 244, 156);</string>
+     </property>
+     <property name="text">
+      <string>Date Created</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_content_notes_view">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>72</y>
+       <width>401</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::RightToLeft</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 244, 156);
+background-color: rgb(44, 47, 51);</string>
+     </property>
+     <property name="text">
+      <string>Content</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_title_notes_view">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>91</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 244, 156);</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>Title 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Title 2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Title 3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Title 4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Title 5</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QPushButton" name="button_edit_notes_view">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>270</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+color: rgb(255, 244, 156);</string>
+     </property>
+     <property name="text">
+      <string>Edit</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="button_delete_notes_view">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>270</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+color: rgb(255, 244, 156);</string>
+     </property>
+     <property name="text">
+      <string>Delete</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
