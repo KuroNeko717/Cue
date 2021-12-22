@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>850</width>
+    <height>676</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(35, 39, 42);
+color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame_outer_schedule_homescreen">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>850</width>
+      <height>650</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(35, 39, 42);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="label_date_time_schedule_homescreen">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>771</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(213, 210, 255);</string>
+     </property>
+     <property name="text">
+      <string>Date - Current Date              Time - Current Time</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_inner_schedule_homescreen">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>50</y>
+       <width>821</width>
+       <height>521</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QFrame" name="frame_schedule_homescreen">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>771</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(44, 47, 51);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QWidget" name="horizontalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>630</x>
+         <y>30</y>
+         <width>126</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontallayout_schedule_homescreen">
+        <item>
+         <widget class="QCheckBox" name="checkbox_notification_on_schedule_homescreen">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(213, 210, 255);</string>
+          </property>
+          <property name="text">
+           <string>ON</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="button_edit_schedule_homescreen">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(213, 210, 255);</string>
+          </property>
+          <property name="text">
+           <string>E</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="button_close_schedule_homescreen">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(213, 210, 255);</string>
+          </property>
+          <property name="text">
+           <string>X</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QLabel" name="label_time_schedule_homescreen">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>151</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(213, 210, 255);</string>
+       </property>
+       <property name="text">
+        <string>Dummy Time 1</string>
+       </property>
+      </widget>
+      <widget class="Line" name="line">
+       <property name="geometry">
+        <rect>
+         <x>160</x>
+         <y>0</y>
+         <width>20</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_content_schedule_homescreen">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>10</y>
+         <width>431</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(213, 210, 255);</string>
+       </property>
+       <property name="text">
+        <string>To-do 1</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="button_readmore_schedule_homescreen">
+       <property name="geometry">
+        <rect>
+         <x>400</x>
+         <y>60</y>
+         <width>93</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(213, 210, 255);</string>
+       </property>
+       <property name="text">
+        <string>Read More</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QScrollBar" name="verticalscrollbar_schedule_homescreen">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>10</y>
+        <width>21</width>
+        <height>501</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">selection-background-color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>850</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuNew">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>Schedules</string>
+    </property>
+    <addaction name="actioncreate_reminder_schedule_homescreen"/>
+    <addaction name="actionedit_and_view_schedule_homescreen"/>
+   </widget>
+   <widget class="QMenu" name="menuNotes">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>Notes</string>
+    </property>
+    <addaction name="actioncreate_notes_homescreen"/>
+    <addaction name="actionview_and_edit_notes_homescreen"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionfiles_in_local_folders_homescreen"/>
+    <addaction name="actioncreate_guide_homescreen"/>
+    <addaction name="actioncreate_srs_cue_homescreen"/>
+   </widget>
+   <addaction name="menuNew"/>
+   <addaction name="menuNotes"/>
+   <addaction name="menuOptions"/>
+  </widget>
+  <action name="actionCreate_Reminder_Schedule">
+   <property name="text">
+    <string>Create Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionView_Reminder_Schedule">
+   <property name="text">
+    <string>View Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionEdit_Reminder_Schedule">
+   <property name="text">
+    <string>Edit Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionFiles_in_local_folders">
+   <property name="text">
+    <string>Files in Local Folders</string>
+   </property>
+  </action>
+  <action name="actionCredits_Documentation">
+   <property name="text">
+    <string>Credits/Documentation</string>
+   </property>
+  </action>
+  <action name="actionCreate_Reminder_Schedule_2">
+   <property name="text">
+    <string>Create Reminder/Schedule</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionView_Reminder_Schedule_2">
+   <property name="text">
+    <string>View Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actioncreate_reminder_schedule_homescreen">
+   <property name="text">
+    <string>Create Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionView_Reminder_Schedule_3">
+   <property name="text">
+    <string>View Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionEdit_Reminder_Schedule_2">
+   <property name="text">
+    <string>Edit Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionfiles_in_local_folders_homescreen">
+   <property name="text">
+    <string>Show file location</string>
+   </property>
+  </action>
+  <action name="actioncreate_guide_homescreen">
+   <property name="text">
+    <string>Guide</string>
+   </property>
+  </action>
+  <action name="actioncreate_notes_homescreen">
+   <property name="text">
+    <string>Create Notes</string>
+   </property>
+  </action>
+  <action name="actionview_and_edit_notes_homescreen">
+   <property name="text">
+    <string>View and Edit Notes</string>
+   </property>
+  </action>
+  <action name="actionedit_and_view_schedule_homescreen">
+   <property name="text">
+    <string>Edit and View Schedules</string>
+   </property>
+  </action>
+  <action name="actioncreate_srs_cue_homescreen">
+   <property name="text">
+    <string>SRS Document for Cue</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
