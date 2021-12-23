@@ -4,6 +4,7 @@ from PyQt5 import QtGui,QtCore
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtGui import QWindow
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
+import sqlite3
 
 class home_screen(QMainWindow):
     def __init__(self,ui_file):
@@ -21,19 +22,26 @@ class home_screen(QMainWindow):
         #Create Note Menubar Action
         self.create_note = None
         self.actioncreate_n_hs.triggered.connect(self.t_create_note)
-
+        
+        #database variables
+        self.conn = sqlite3.connect("Cue.db")
+        self.c = self.conn.cursor()
+        
         #View/ Edit Note Menubar Action
         self.vedit_note = None
         self.actionview_n_hs.triggered.connect(self.t_vedit_note)
         self.generate_schedule()
-
+        self.setup()
         self.show()
+
+    def setup(self):
+        self.c.execute("create table if not exists Schedule(id integer primary key, name varchar(250) not null, create_date timestamp not null, occurance varchar(50) not null, discription text not null, is_notify boolean not null)")
 
     #Schedule generation Function Calling
     def generate_schedule(self):
 
         for i in range(7):
-            obj = schedule("timee", "do this")
+            obj = schedule("timee", "do this", 3)
             temp = obj.gen_schedule()
             self.verticalLayout.addWidget(temp)
 
@@ -97,10 +105,11 @@ class vedit_note(QMainWindow):
 
 class schedule(QMainWindow):
     
-    def __init__(self, time, title):
+    def __init__(self, time, title, id):
         super(schedule,self).__init__()
         self.time = time
         self.title = title
+        self.id = id
 
     #Schedule generation
     def gen_schedule(self):
