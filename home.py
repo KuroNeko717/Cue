@@ -88,6 +88,6 @@ class vedit_note(QMainWindow):
 app=QApplication([])
 
 if __name__ == "__main__":
-    window=home_screen("Ui_files\home_screen_window.ui")
+    window=home_screen("Ui_files\Home_Screen_Window.ui")
     app.exec_()
 
