@@ -10,14 +10,6 @@
     <height>650</height>
    </rect>
   </property>
-  <property name="font">
-   <font>
-    <family>Arial</family>
-    <pointsize>14</pointsize>
-    <weight>75</weight>
-    <bold>true</bold>
-   </font>
-  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -25,7 +17,7 @@
    <string notr="true">background-color: rgb(35, 39, 42);
 color: rgb(255, 255, 255);</string>
   </property>
-  <widget class="QFrame" name="frame_outer_schedule_create">
+  <widget class="QFrame" name="outer_frame_s_e">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -43,12 +35,12 @@ color: rgb(255, 255, 255);</string>
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_create_new_schedule_create">
+   <widget class="QLabel" name="edit_label_s_e">
     <property name="geometry">
      <rect>
       <x>20</x>
       <y>30</y>
-      <width>281</width>
+      <width>181</width>
       <height>31</height>
      </rect>
     </property>
@@ -60,17 +52,17 @@ color: rgb(255, 255, 255);</string>
       <bold>true</bold>
      </font>
     </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(203, 250, 255);</string>
+     <string notr="true">color: rgb(220, 255, 224);</string>
     </property>
     <property name="text">
-     <string>Create New Schedule</string>
+     <string>Edit Schedule</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QFrame" name="frame_inner_schedule_create">
+   <widget class="QFrame" name="inner_frame_s_e">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -88,7 +80,7 @@ color: rgb(255, 255, 255);</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label_name_schedule_create">
+    <widget class="QLabel" name="name_label_s_e">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -106,13 +98,13 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <property name="text">
       <string>Name :</string>
      </property>
     </widget>
-    <widget class="QTextEdit" name="textedit_name_schedule_create">
+    <widget class="QTextEdit" name="name_textedit_s_e">
      <property name="geometry">
       <rect>
        <x>250</x>
@@ -130,10 +122,10 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_date_schedule_create">
+    <widget class="QLabel" name="date_label_s_e">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -151,13 +143,13 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <property name="text">
       <string>Date :</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_occurence_schedule_create">
+    <widget class="QLabel" name="occurence_label_s_e">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -175,13 +167,13 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <property name="text">
       <string>Occurence :</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="comboBox_occurence_schedule_create">
+    <widget class="QComboBox" name="occurence_combobox_s_e">
      <property name="geometry">
       <rect>
        <x>280</x>
@@ -199,7 +191,7 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <item>
       <property name="text">
@@ -222,7 +214,7 @@ color: rgb(255, 255, 255);</string>
       </property>
      </item>
     </widget>
-    <widget class="QLabel" name="label_remind_later_schedule_create">
+    <widget class="QLabel" name="remind_earlier_by_label_s_e">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -240,13 +232,13 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <property name="text">
       <string>Remind me earlier by :</string>
      </property>
     </widget>
-    <widget class="QTextEdit" name="textEdit_remind_later_schedule_create">
+    <widget class="QTextEdit" name="remind_earlier_by_textedit_s_e">
      <property name="geometry">
       <rect>
        <x>330</x>
@@ -264,10 +256,10 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkbox_notification_schedule_create">
+    <widget class="QCheckBox" name="notification_on_checkbox_s_e">
      <property name="geometry">
       <rect>
        <x>530</x>
@@ -285,13 +277,13 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <property name="text">
       <string>Turn ON Notification</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_decription_schedule_create">
+    <widget class="QLabel" name="description_label_s_e">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -309,13 +301,13 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <property name="text">
       <string>Description :</string>
      </property>
     </widget>
-    <widget class="QPlainTextEdit" name="plaintextedit_decription_schedule_create">
+    <widget class="QPlainTextEdit" name="description_plaintextedit_s_e">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -333,23 +325,10 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
     </widget>
-    <widget class="Line" name="line_2">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>-70</y>
-       <width>801</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="QDateEdit" name="dateedit_date_schedule_create">
+    <widget class="QDateEdit" name="date_dateedit_s_e">
      <property name="geometry">
       <rect>
        <x>140</x>
@@ -362,12 +341,10 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Arial</family>
        <pointsize>14</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <property name="maximumDate">
       <date>
@@ -384,7 +361,7 @@ color: rgb(255, 255, 255);</string>
       </date>
      </property>
     </widget>
-    <widget class="QTimeEdit" name="timeedit_time_schedule_create">
+    <widget class="QTimeEdit" name="time_timeedit_s_e">
      <property name="geometry">
       <rect>
        <x>540</x>
@@ -397,15 +374,13 @@ color: rgb(255, 255, 255);</string>
       <font>
        <family>Arial</family>
        <pointsize>14</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_time_schedule_create">
+    <widget class="QLabel" name="time_label_s_e">
      <property name="geometry">
       <rect>
        <x>410</x>
@@ -423,13 +398,13 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <property name="text">
       <string>Time :</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="button_save_and_close_schedule_create">
+    <widget class="QPushButton" name="save_close_button_s_e">
      <property name="geometry">
       <rect>
        <x>550</x>
@@ -447,8 +422,7 @@ color: rgb(255, 255, 255);</string>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(35, 39, 42);
-color: rgb(203, 250, 255);</string>
+      <string notr="true">color: rgb(220, 255, 224);</string>
      </property>
      <property name="text">
       <string>Save and Close</string>

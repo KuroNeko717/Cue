@@ -18,7 +18,7 @@
 background-color: rgb(35, 39, 42);
 background-color: rgb(35, 39, 42);</string>
   </property>
-  <widget class="QFrame" name="frame_deletebox_notes">
+  <widget class="QFrame" name="frame_n_d">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -38,7 +38,7 @@ background-color: rgb(35, 39, 42);</string>
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QPushButton" name="button_confirm_notes">
+   <widget class="QPushButton" name="confirm_button_n_d">
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -49,17 +49,18 @@ background-color: rgb(35, 39, 42);</string>
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(255, 244, 156);</string>
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>Confirm</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_cancel_notes">
+   <widget class="QPushButton" name="cancel_button_n_d">
     <property name="geometry">
      <rect>
       <x>180</x>
@@ -70,17 +71,18 @@ background-color: rgb(35, 39, 42);</string>
     </property>
     <property name="font">
      <font>
-      <pointsize>10</pointsize>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(255, 244, 156);</string>
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>Cancel</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_deletebox_notes">
+   <widget class="QLabel" name="label_n_d">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -91,11 +93,13 @@ background-color: rgb(35, 39, 42);</string>
     </property>
     <property name="font">
      <font>
+      <family>Arial</family>
       <pointsize>12</pointsize>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(255, 244, 156);</string>
+     <string notr="true">
+color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>Are you sure you want to delete this note?</string>

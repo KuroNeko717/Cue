@@ -18,7 +18,7 @@
 color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="frame_outer_schedule_homescreen">
+   <widget class="QFrame" name="outer_frame_hs">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -36,7 +36,7 @@ color: rgb(255, 255, 255);</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="label_date_time_schedule_homescreen">
+    <widget class="QLabel" name="date_time_label_hs">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -60,13 +60,13 @@ color: rgb(255, 255, 255);</string>
       <string>Date - Current Date              Time - Current Time</string>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_inner_schedule_homescreen">
+    <widget class="QFrame" name="inner_frame_hs">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>50</y>
        <width>821</width>
-       <height>521</height>
+       <height>581</height>
       </rect>
      </property>
      <property name="frameShape">
@@ -75,7 +75,7 @@ color: rgb(255, 255, 255);</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QFrame" name="frame_schedule_homescreen">
+     <widget class="QFrame" name="frame_hs">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -103,9 +103,9 @@ color: rgb(255, 255, 255);</string>
          <height>31</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="horizontallayout_schedule_homescreen">
+       <layout class="QHBoxLayout" name="horizontallayout_hs">
         <item>
-         <widget class="QCheckBox" name="checkbox_notification_on_schedule_homescreen">
+         <widget class="QCheckBox" name="notification_on_checkbox_hs">
           <property name="font">
            <font>
             <family>Arial</family>
@@ -121,7 +121,7 @@ color: rgb(255, 255, 255);</string>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="button_edit_schedule_homescreen">
+         <widget class="QToolButton" name="edit_button_hs">
           <property name="font">
            <font>
             <family>Arial</family>
@@ -137,7 +137,7 @@ color: rgb(255, 255, 255);</string>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="button_close_schedule_homescreen">
+         <widget class="QToolButton" name="close_button_hs">
           <property name="font">
            <font>
             <family>Arial</family>
@@ -154,7 +154,7 @@ color: rgb(255, 255, 255);</string>
         </item>
        </layout>
       </widget>
-      <widget class="QLabel" name="label_time_schedule_homescreen">
+      <widget class="QLabel" name="time_label_hs">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -191,7 +191,7 @@ color: rgb(255, 255, 255);</string>
         <enum>Qt::Vertical</enum>
        </property>
       </widget>
-      <widget class="QLabel" name="label_content_schedule_homescreen">
+      <widget class="QLabel" name="content_label_hs">
        <property name="geometry">
         <rect>
          <x>180</x>
@@ -213,7 +213,7 @@ color: rgb(255, 255, 255);</string>
         <string>To-do 1</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="button_readmore_schedule_homescreen">
+      <widget class="QPushButton" name="readmore_button_hs">
        <property name="geometry">
         <rect>
          <x>400</x>
@@ -236,13 +236,13 @@ color: rgb(255, 255, 255);</string>
        </property>
       </widget>
      </widget>
-     <widget class="QScrollBar" name="verticalscrollbar_schedule_homescreen">
+     <widget class="QScrollBar" name="verticalscrollbar_hs">
       <property name="geometry">
        <rect>
         <x>800</x>
         <y>10</y>
         <width>21</width>
-        <height>501</height>
+        <height>571</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -262,7 +262,7 @@ color: rgb(255, 255, 255);</string>
      <x>0</x>
      <y>0</y>
      <width>850</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuNew">
@@ -275,8 +275,8 @@ color: rgb(255, 255, 255);</string>
     <property name="title">
      <string>Schedules</string>
     </property>
-    <addaction name="actioncreate_reminder_schedule_homescreen"/>
-    <addaction name="actionedit_and_view_schedule_homescreen"/>
+    <addaction name="actioncreate_s_hs"/>
+    <addaction name="actionview_s_hs"/>
    </widget>
    <widget class="QMenu" name="menuNotes">
     <property name="font">
@@ -288,8 +288,8 @@ color: rgb(255, 255, 255);</string>
     <property name="title">
      <string>Notes</string>
     </property>
-    <addaction name="actioncreate_notes_homescreen"/>
-    <addaction name="actionview_and_edit_notes_homescreen"/>
+    <addaction name="actioncreate_n_hs"/>
+    <addaction name="actionview_n_hs"/>
    </widget>
    <widget class="QMenu" name="menuOptions">
     <property name="font">
@@ -301,9 +301,9 @@ color: rgb(255, 255, 255);</string>
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="actionfiles_in_local_folders_homescreen"/>
-    <addaction name="actioncreate_guide_homescreen"/>
-    <addaction name="actioncreate_srs_cue_homescreen"/>
+    <addaction name="actionfiles_in_local_folder_hs"/>
+    <addaction name="actioncreate_guide_hs"/>
+    <addaction name="actioncreate_cue_srs_hs"/>
    </widget>
    <addaction name="menuNew"/>
    <addaction name="menuNotes"/>
@@ -350,9 +350,15 @@ color: rgb(255, 255, 255);</string>
     <string>View Reminder/Schedule</string>
    </property>
   </action>
-  <action name="actioncreate_reminder_schedule_homescreen">
+  <action name="actioncreate_s_hs">
    <property name="text">
-    <string>Create Reminder/Schedule</string>
+    <string>Create New Schedule</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
   <action name="actionView_Reminder_Schedule_3">
@@ -365,34 +371,92 @@ color: rgb(255, 255, 255);</string>
     <string>Edit Reminder/Schedule</string>
    </property>
   </action>
-  <action name="actionfiles_in_local_folders_homescreen">
+  <action name="actionfiles_in_local_folder_hs">
    <property name="text">
     <string>Show file location</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
-  <action name="actioncreate_guide_homescreen">
+  <action name="actioncreate_guide_hs">
    <property name="text">
     <string>Guide</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
-  <action name="actioncreate_notes_homescreen">
+  <action name="actioncreate_n_hs">
    <property name="text">
     <string>Create Notes</string>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
   </action>
-  <action name="actionview_and_edit_notes_homescreen">
+  <action name="actionview_n_hs">
    <property name="text">
     <string>View and Edit Notes</string>
    </property>
-  </action>
-  <action name="actionedit_and_view_schedule_homescreen">
-   <property name="text">
-    <string>Edit and View Schedules</string>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
-  <action name="actioncreate_srs_cue_homescreen">
+  <action name="actionview_s_hs">
+   <property name="text">
+    <string>View and Edit Schedule</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actioncreate_cue_srs_hs">
    <property name="text">
     <string>SRS Document for Cue</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionview">
+   <property name="text">
+    <string>View Schedule</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionvie">
+   <property name="text">
+    <string>View Notes</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
    </property>
   </action>
  </widget>

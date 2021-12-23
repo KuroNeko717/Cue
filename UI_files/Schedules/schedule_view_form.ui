@@ -17,7 +17,7 @@
    <string notr="true">background-color: rgb(35, 39, 42);
 color: rgb(255, 255, 255);</string>
   </property>
-  <widget class="QFrame" name="frame_outer_schedule_view">
+  <widget class="QFrame" name="outer_frame_s_v">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -35,7 +35,7 @@ color: rgb(255, 255, 255);</string>
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_schedule_view">
+   <widget class="QLabel" name="view_label_s_v">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -59,7 +59,7 @@ color: rgb(255, 255, 255);</string>
      <string>View Schedule</string>
     </property>
    </widget>
-   <widget class="QFrame" name="frame_center_schedule_view">
+   <widget class="QFrame" name="center_frame_s_v">
     <property name="geometry">
      <rect>
       <x>9</x>
@@ -74,7 +74,7 @@ color: rgb(255, 255, 255);</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QComboBox" name="combobox_year_schedule_view">
+    <widget class="QComboBox" name="year_combobox_s_v">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -129,7 +129,7 @@ color: rgb(255, 210, 251);</string>
       </property>
      </item>
     </widget>
-    <widget class="QComboBox" name="combobox_month_schedule_view">
+    <widget class="QComboBox" name="month_combobox_s_v">
      <property name="geometry">
       <rect>
        <x>160</x>
@@ -214,7 +214,7 @@ color: rgb(255, 210, 251);</string>
       </property>
      </item>
     </widget>
-    <widget class="QComboBox" name="combobox_date_schedule_view">
+    <widget class="QComboBox" name="date_combobox_s_v">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -394,12 +394,12 @@ color: rgb(255, 210, 251);</string>
       </property>
      </item>
     </widget>
-    <widget class="QFrame" name="frame_inner_schedule_view">
+    <widget class="QFrame" name="inner_frame_s_v">
      <property name="geometry">
       <rect>
        <x>9</x>
        <y>49</y>
-       <width>811</width>
+       <width>821</width>
        <height>511</height>
       </rect>
      </property>
@@ -409,12 +409,12 @@ color: rgb(255, 210, 251);</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QFrame" name="frame_schedule_view">
+     <widget class="QFrame" name="frame_s_v">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>791</width>
+        <width>771</width>
         <height>91</height>
        </rect>
       </property>
@@ -437,9 +437,9 @@ color: rgb(255, 255, 255);</string>
          <height>31</height>
         </rect>
        </property>
-       <layout class="QHBoxLayout" name="horizontallayout_schedule_view">
+       <layout class="QHBoxLayout" name="horizontallayout_s_v">
         <item>
-         <widget class="QCheckBox" name="checkbox_notification_on_schedule_view">
+         <widget class="QCheckBox" name="notification_on_checkbox_s_v">
           <property name="font">
            <font>
             <family>Arial</family>
@@ -455,7 +455,7 @@ color: rgb(255, 255, 255);</string>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="button_edit_schedule_view">
+         <widget class="QToolButton" name="edit_button_s_v">
           <property name="font">
            <font>
             <family>Arial</family>
@@ -471,7 +471,7 @@ color: rgb(255, 255, 255);</string>
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="button_close_schedule_view">
+         <widget class="QToolButton" name="close_button_s_v">
           <property name="font">
            <font>
             <family>Arial</family>
@@ -488,7 +488,7 @@ color: rgb(255, 255, 255);</string>
         </item>
        </layout>
       </widget>
-      <widget class="QLabel" name="label_time_schedule_view">
+      <widget class="QLabel" name="time_label_s_v">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -525,7 +525,7 @@ color: rgb(255, 255, 255);</string>
         <enum>Qt::Vertical</enum>
        </property>
       </widget>
-      <widget class="QLabel" name="label_content_schedule_view">
+      <widget class="QLabel" name="content_label_s_v">
        <property name="geometry">
         <rect>
          <x>180</x>
@@ -547,7 +547,7 @@ color: rgb(255, 255, 255);</string>
         <string>To-do</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="button_readmore_schedule_view">
+      <widget class="QPushButton" name="readmore_button_s_v">
        <property name="geometry">
         <rect>
          <x>400</x>
@@ -569,6 +569,22 @@ color: rgb(255, 255, 255);</string>
         <string>Read More</string>
        </property>
       </widget>
+     </widget>
+     <widget class="QScrollBar" name="verticalscrollbar_s_v">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>10</y>
+        <width>21</width>
+        <height>501</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">selection-background-color: rgb(0, 0, 0);</string>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
      </widget>
     </widget>
    </widget>

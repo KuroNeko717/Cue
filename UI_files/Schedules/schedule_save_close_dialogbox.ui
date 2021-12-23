@@ -7,26 +7,13 @@
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>170</height>
+    <height>169</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>40</y>
-     <width>301</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QFrame" name="frame_outer_schedule_delete_dialogbox">
+  <widget class="QFrame" name="outer_frame_s_sc">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -48,15 +35,15 @@ background-color: rgb(35, 39, 42);</string>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>133</x>
       <y>90</y>
-      <width>194</width>
+      <width>201</width>
       <height>61</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontallayout_schedule_delete_dialogbox">
+    <layout class="QHBoxLayout" name="horizontallayout_s_sc">
      <item>
-      <widget class="QPushButton" name="button_yes_schedule_delete_dialogbox">
+      <widget class="QPushButton" name="confirm_button_s_sc">
        <property name="font">
         <font>
          <family>Arial</family>
@@ -68,12 +55,12 @@ background-color: rgb(35, 39, 42);</string>
 color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>Yes</string>
+        <string>Confirm</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="button_no_schedule_delete_dialogbox">
+      <widget class="QPushButton" name="cancel_button_s_sc">
        <property name="font">
         <font>
          <family>Arial</family>
@@ -85,19 +72,19 @@ color: rgb(255, 255, 255);</string>
 color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>No</string>
+        <string>Cancel</string>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_schedule_delete_dialogbox">
+   <widget class="QLabel" name="label_s_sc">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>411</width>
-      <height>41</height>
+      <width>421</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -106,15 +93,12 @@ color: rgb(255, 255, 255);</string>
       <pointsize>13</pointsize>
      </font>
     </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(35, 39, 42);
 color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Do You Want To Delete This Schedule ?</string>
+     <string>Are you sure you want to save and close?</string>
     </property>
    </widget>
   </widget>

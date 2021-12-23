@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QFrame" name="frame_delete_description_notes">
+  <widget class="QFrame" name="outer_frame_s_sd">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -33,13 +33,13 @@ background-color: rgb(35, 39, 42);</string>
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_delete_description_notes">
+   <widget class="QLabel" name="label_s_sd">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>50</y>
-      <width>231</width>
-      <height>31</height>
+      <x>10</x>
+      <y>30</y>
+      <width>321</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="font">
@@ -54,7 +54,7 @@ background-color: rgb(35, 39, 42);</string>
      <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Note successfully got deleted.</string>
+     <string>Schedule successfully got saved.</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

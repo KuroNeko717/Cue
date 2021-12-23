@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>560</width>
-    <height>449</height>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,13 +16,13 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(35, 39, 42);</string>
   </property>
-  <widget class="QFrame" name="frame_outer_schedule_read_more">
+  <widget class="QFrame" name="outer_frame_s_rm">
    <property name="geometry">
     <rect>
      <x>-1</x>
      <y>-1</y>
-     <width>400</width>
-     <height>250</height>
+     <width>561</width>
+     <height>451</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -34,7 +34,7 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_more_info_schedule_read_more">
+   <widget class="QLabel" name="more_info_label_s_rm">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -56,13 +56,13 @@
      <string>More Info :</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_more_info_read_more">
+   <widget class="QLabel" name="content_label_s_rm">
     <property name="geometry">
      <rect>
-      <x>14</x>
+      <x>4</x>
       <y>55</y>
-      <width>371</width>
-      <height>181</height>
+      <width>551</width>
+      <height>391</height>
      </rect>
     </property>
     <property name="font">

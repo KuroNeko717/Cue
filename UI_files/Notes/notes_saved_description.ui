@@ -13,19 +13,14 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QFrame" name="frame_delete_description_schedule">
+  <widget class="QFrame" name="frame_n_sd">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>340</width>
-     <height>130</height>
+     <width>341</width>
+     <height>131</height>
     </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-    </font>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(35, 39, 42);
@@ -38,7 +33,7 @@ background-color: rgb(35, 39, 42);</string>
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_delete_description_schedule">
+   <widget class="QLabel" name="label_n_sd">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -49,7 +44,8 @@ background-color: rgb(35, 39, 42);</string>
     </property>
     <property name="font">
      <font>
-      <pointsize>11</pointsize>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
      </font>
     </property>
     <property name="layoutDirection">
@@ -59,7 +55,7 @@ background-color: rgb(35, 39, 42);</string>
      <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Schedule successfully got deleted.</string>
+     <string>Note successfully got saved.</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
