@@ -1,5 +1,3 @@
-import sys
-import PyQt5 
 from PyQt5 import QtGui,QtCore
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtGui import QWindow
