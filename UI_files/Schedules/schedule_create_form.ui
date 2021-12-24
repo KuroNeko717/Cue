@@ -10,6 +10,18 @@
     <height>650</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>850</width>
+    <height>650</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>850</width>
+    <height>650</height>
+   </size>
+  </property>
   <property name="font">
    <font>
     <family>Arial</family>
@@ -75,8 +87,8 @@ color: rgb(255, 255, 255);</string>
      <rect>
       <x>20</x>
       <y>90</y>
-      <width>801</width>
-      <height>481</height>
+      <width>811</width>
+      <height>541</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -222,57 +234,12 @@ color: rgb(255, 255, 255);</string>
       </property>
      </item>
     </widget>
-    <widget class="QLabel" name="remind_earlier_by_label_s_c">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>210</y>
-       <width>251</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial</family>
-       <pointsize>14</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
-     </property>
-     <property name="text">
-      <string>Remind me earlier by :</string>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="remind_earlier_by_textedit_s_c">
-     <property name="geometry">
-      <rect>
-       <x>330</x>
-       <y>210</y>
-       <width>341</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Arial</family>
-       <pointsize>14</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(203, 250, 255);</string>
-     </property>
-    </widget>
     <widget class="QCheckBox" name="notification_on_checkbox_s_c">
      <property name="geometry">
       <rect>
-       <x>530</x>
-       <y>320</y>
-       <width>261</width>
+       <x>570</x>
+       <y>400</y>
+       <width>201</width>
        <height>51</height>
       </rect>
      </property>
@@ -295,7 +262,7 @@ color: rgb(255, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>280</y>
+       <y>200</y>
        <width>171</width>
        <height>31</height>
       </rect>
@@ -319,9 +286,9 @@ color: rgb(255, 255, 255);</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>320</y>
-       <width>471</width>
-       <height>151</height>
+       <y>240</y>
+       <width>491</width>
+       <height>281</height>
       </rect>
      </property>
      <property name="font">
@@ -419,8 +386,8 @@ color: rgb(255, 255, 255);</string>
     <widget class="QPushButton" name="save_close_button_s_c">
      <property name="geometry">
       <rect>
-       <x>550</x>
-       <y>397</y>
+       <x>570</x>
+       <y>470</y>
        <width>201</width>
        <height>41</height>
       </rect>

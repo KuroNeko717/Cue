@@ -37,6 +37,8 @@ class home_screen(QMainWindow):
         self.generate_schedule()
         self.setup()
         self.show()
+    
+        
 
     def setup(self):
         self.c.execute("create table if not exists Schedule(id integer primary key, name varchar(250) not null, create_date timestamp not null, occurance varchar(50) not null, discription text not null, is_notify boolean not null)")
@@ -140,7 +142,14 @@ class home_screen(QMainWindow):
         x = self.c.execute("select * from Schedule where id = {}".format(id))
         for i in x:
            print(i)
-    
+        self.readmore_button_o= None
+        if self.readmore_button_o is None:
+            self.readmore_button_o = readmore_display("Ui_files\\Schedules\\schedule_readmore_form.ui")
+            self.readmore_button_o.show()
+        else:
+            self.readmore_button_o.close()
+            self.readmore_button_o = None
+
     #Create schedule Menubar Action Form Open/Close
     def t_create_schedule(self):
         if self.create_schedule is None:
@@ -198,6 +207,10 @@ class vedit_note(QMainWindow):
         super(vedit_note,self).__init__()
         uic.loadUi(ui_file,self)
 
+class readmore_display(QMainWindow):
+    def __init__(self,ui_file):
+        super(readmore_display,self).__init__()
+        uic.loadUi(ui_file,self)
 
 app=QApplication([])
 

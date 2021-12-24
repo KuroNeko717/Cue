@@ -25,7 +25,12 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QFrame" name="outer_frame_s_sd">
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(35, 39, 42);
+background-color: rgb(35, 39, 42);
+background-color: rgb(35, 39, 42);</string>
+  </property>
+  <widget class="QFrame" name="frame_n_d">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -45,28 +50,71 @@ background-color: rgb(35, 39, 42);</string>
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLabel" name="label_s_sd">
+   <widget class="QPushButton" name="confirm_button_n_d">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>321</width>
-      <height>71</height>
+      <x>60</x>
+      <y>80</y>
+      <width>75</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="font">
      <font>
+      <family>Arial</family>
       <pointsize>12</pointsize>
      </font>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>Schedule successfully got saved.</string>
+     <string>Confirm</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="cancel_button_n_d">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>80</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Cancel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_n_d">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>311</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Are you sure you want to delete this note?</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
