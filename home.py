@@ -5,6 +5,7 @@ from PyQt5 import uic, QtWidgets
 from PyQt5.QtGui import QWindow
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
 import sqlite3
+from functools import partial
 
 class home_screen(QMainWindow):
     def __init__(self,ui_file):
@@ -27,6 +28,9 @@ class home_screen(QMainWindow):
         self.conn = sqlite3.connect("Cue.db")
         self.c = self.conn.cursor()
         
+        #frames variable
+        self.frames = []
+        
         #View/ Edit Note Menubar Action
         self.vedit_note = None
         self.actionview_n_hs.triggered.connect(self.t_vedit_note)
@@ -39,12 +43,104 @@ class home_screen(QMainWindow):
 
     #Schedule generation Function Calling
     def generate_schedule(self):
-
-        for i in range(7):
-            obj = schedule("timee", "do this", 3)
-            temp = obj.gen_schedule()
+        
+        data = self.c.execute("select * from Schedule where create_date >= date('now','-1 day') and create_date <= date('now','+1 day')")
+        
+        for i in data:
+            temp = self._gen_schedule(i[1], i[4], i[0])
+            self.frames.append(temp)
             self.verticalLayout.addWidget(temp)
 
+    def _gen_schedule(self,time,title,id):
+        
+        frame = QtWidgets.QFrame()
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(frame.sizePolicy().hasHeightForWidth())
+        frame.setSizePolicy(sizePolicy)
+        frame.setMinimumSize(QtCore.QSize(0, 100))
+        frame.setStyleSheet("background-color: rgb(44, 47, 51);\n" "color: rgb(255, 255, 255);")
+        frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        frame.setObjectName("frame")
+        horizontalLayoutWidget = QtWidgets.QWidget(frame)
+        horizontalLayoutWidget.setGeometry(QtCore.QRect(630, 30, 126, 31))
+        horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
+        horizontallayout = QtWidgets.QHBoxLayout(horizontalLayoutWidget)
+        horizontallayout.setContentsMargins(0, 0, 0, 0)
+        horizontallayout.setObjectName("horizontallayout")
+        notification_on_checkbox = QtWidgets.QCheckBox(horizontalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        notification_on_checkbox.setFont(font)
+        notification_on_checkbox.setStyleSheet("color: rgb(213, 210, 255);")
+        notification_on_checkbox.setObjectName("notification_on_checkbox")
+        horizontallayout.addWidget(notification_on_checkbox)
+        edit_button = QtWidgets.QToolButton(horizontalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        edit_button.setFont(font)
+        edit_button.setStyleSheet("color: rgb(213, 210, 255);")
+        edit_button.setObjectName("edit_button")
+        horizontallayout.addWidget(edit_button)
+        delete_button = QtWidgets.QToolButton(horizontalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        delete_button.setFont(font)
+        delete_button.setStyleSheet("color: rgb(213, 210, 255);")
+        delete_button.setObjectName("delete_button")
+        horizontallayout.addWidget(delete_button)
+        time_label = QtWidgets.QLabel(frame)
+        time_label.setGeometry(QtCore.QRect(10, 20, 151, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        time_label.setFont(font)
+        time_label.setStyleSheet("color: rgb(213, 210, 255);")
+        time_label.setObjectName("time_label")
+        line = QtWidgets.QFrame(frame)
+        line.setGeometry(QtCore.QRect(160, 0, 20, 91))
+        line.setFrameShape(QtWidgets.QFrame.VLine)
+        line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        line.setObjectName("line")
+        content_label = QtWidgets.QLabel(frame)
+        content_label.setGeometry(QtCore.QRect(180, 10, 431, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        content_label.setFont(font)
+        content_label.setStyleSheet("color: rgb(213, 210, 255);")
+        content_label.setObjectName("content_label")
+        readmore_button = QtWidgets.QPushButton(frame)
+        readmore_button.setGeometry(QtCore.QRect(400, 60, 93, 28))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        readmore_button.setFont(font)
+        readmore_button.setStyleSheet("color: rgb(213, 210, 255);")
+        readmore_button.setObjectName("readmore_button")
+
+        _translate = QtCore.QCoreApplication.translate
+        notification_on_checkbox.setText(_translate("MainWindow", "ON"))
+        edit_button.setText(_translate("MainWindow", "E"))
+        delete_button.setText(_translate("MainWindow", "X"))
+        time_label.setText(_translate("MainWindow", "{}".format(time)))
+        content_label.setText(_translate("MainWindow", "{}".format(title)))
+        readmore_button.setText(_translate("MainWindow", "Read More"))
+        readmore_button.clicked.connect(partial(self.onclick_readMore, id))
+        return frame
+    
+    def onclick_readMore(self,id):
+        x = self.c.execute("select * from Schedule where id = {}".format(id))
+        for i in x:
+           print(i)
+    
     #Create schedule Menubar Action Form Open/Close
     def t_create_schedule(self):
         if self.create_schedule is None:
@@ -101,101 +197,6 @@ class vedit_note(QMainWindow):
     def __init__(self,ui_file):
         super(vedit_note,self).__init__()
         uic.loadUi(ui_file,self)
-
-
-class schedule(QMainWindow):
-    
-    def __init__(self, time, title, id):
-        super(schedule,self).__init__()
-        self.time = time
-        self.title = title
-        self.id = id
-
-    #Schedule generation
-    def gen_schedule(self):
-        
-        self.frame = QtWidgets.QFrame()
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy)
-        self.frame.setMinimumSize(QtCore.QSize(0, 100))
-        self.frame.setStyleSheet("background-color: rgb(44, 47, 51);\n" "color: rgb(255, 255, 255);")
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.horizontalLayoutWidget = QtWidgets.QWidget(self.frame)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(630, 30, 126, 31))
-        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontallayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontallayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontallayout.setObjectName("horizontallayout")
-        self.notification_on_checkbox = QtWidgets.QCheckBox(self.horizontalLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(10)
-        self.notification_on_checkbox.setFont(font)
-        self.notification_on_checkbox.setStyleSheet("color: rgb(213, 210, 255);")
-        self.notification_on_checkbox.setObjectName("notification_on_checkbox")
-        self.horizontallayout.addWidget(self.notification_on_checkbox)
-        self.edit_button = QtWidgets.QToolButton(self.horizontalLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(10)
-        self.edit_button.setFont(font)
-        self.edit_button.setStyleSheet("color: rgb(213, 210, 255);")
-        self.edit_button.setObjectName("edit_button")
-        self.horizontallayout.addWidget(self.edit_button)
-        self.delete_button = QtWidgets.QToolButton(self.horizontalLayoutWidget)
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(10)
-        self.delete_button.setFont(font)
-        self.delete_button.setStyleSheet("color: rgb(213, 210, 255);")
-        self.delete_button.setObjectName("delete_button")
-        self.horizontallayout.addWidget(self.delete_button)
-        self.time_label = QtWidgets.QLabel(self.frame)
-        self.time_label.setGeometry(QtCore.QRect(10, 20, 151, 51))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setWeight(50)
-        self.time_label.setFont(font)
-        self.time_label.setStyleSheet("color: rgb(213, 210, 255);")
-        self.time_label.setObjectName("time_label")
-        self.line = QtWidgets.QFrame(self.frame)
-        self.line.setGeometry(QtCore.QRect(160, 0, 20, 91))
-        self.line.setFrameShape(QtWidgets.QFrame.VLine)
-        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line.setObjectName("line")
-        self.content_label = QtWidgets.QLabel(self.frame)
-        self.content_label.setGeometry(QtCore.QRect(180, 10, 431, 41))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(14)
-        self.content_label.setFont(font)
-        self.content_label.setStyleSheet("color: rgb(213, 210, 255);")
-        self.content_label.setObjectName("content_label")
-        self.readmore_button = QtWidgets.QPushButton(self.frame)
-        self.readmore_button.setGeometry(QtCore.QRect(400, 60, 93, 28))
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(11)
-        self.readmore_button.setFont(font)
-        self.readmore_button.setStyleSheet("color: rgb(213, 210, 255);")
-        self.readmore_button.setObjectName("readmore_button")
-
-        _translate = QtCore.QCoreApplication.translate
-        self.notification_on_checkbox.setText(_translate("MainWindow", "ON"))
-        self.edit_button.setText(_translate("MainWindow", "E"))
-        self.delete_button.setText(_translate("MainWindow", "X"))
-        self.time_label.setText(_translate("MainWindow", "{}".format(self.time)))
-        self.content_label.setText(_translate("MainWindow", "{}".format(self.title)))
-        self.readmore_button.setText(_translate("MainWindow", "Read More"))
-
-        return self.frame
 
 
 app=QApplication([])
