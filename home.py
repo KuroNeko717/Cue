@@ -3,7 +3,7 @@ import PyQt5
 from PyQt5 import QtGui,QtCore
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtGui import QWindow
-from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
+from PyQt5.QtWidgets import QApplication, QDialog, QWidget, QMainWindow
 import sqlite3
 from functools import partial
 
@@ -28,6 +28,11 @@ class home_screen(QMainWindow):
         self.conn = sqlite3.connect("Cue.db")
         self.c = self.conn.cursor()
         
+        #timer 
+        timer =QtCore.QTimer(self)
+        timer.timeout.connect(self.time_update)
+        timer.start(1000)
+        
         #frames variable
         self.frames = []
         
@@ -38,8 +43,26 @@ class home_screen(QMainWindow):
         self.setup()
         self.show()
     
+    def time_update(self):
         
-
+        date = QtCore.QDate.currentDate()
+        time = QtCore.QTime.currentTime()
+        
+        s_date = date.toString()
+        s_time = time.toString()
+        
+        timestamp = "Date: {} Time {}".format(s_date,s_time)
+        
+        self.date_time_label_hs.setText(timestamp)
+    
+    def update(self):
+        
+        for i in reversed(range(self.verticalLayout.count())): 
+            self.verticalLayout.itemAt(i).widget().setParent(None)
+            
+        self.frames = []
+        self.generate_schedule()
+    
     def setup(self):
         self.c.execute("create table if not exists Schedule(id integer primary key, name varchar(250) not null, create_date timestamp not null, occurance varchar(50) not null, discription text not null, is_notify boolean not null)")
 
@@ -135,20 +158,55 @@ class home_screen(QMainWindow):
         time_label.setText(_translate("MainWindow", "{}".format(time)))
         content_label.setText(_translate("MainWindow", "{}".format(title)))
         readmore_button.setText(_translate("MainWindow", "Read More"))
+        
         readmore_button.clicked.connect(partial(self.onclick_readMore, id))
+        edit_button.clicked.connect(partial(self.onclick_edit,id))
+        delete_button.clicked.connect(partial(self.onclick_delete,id))
+        
         return frame
+    
+    def onclick_delete(self,id):
+        x = self.c.execute("select * from Schedule where id = {}".format(id))
+        
+        for i in x:
+            x = i
+        
+        self.delete_dialogue_box = None
+        if self.delete_dialogue_box  is None:
+            self.delete_dialogue_box  = delete_display("Ui_files\\Schedules\\schedule_delete_dialogbox.ui",x[0],self)
+            self.delete_dialogue_box .show()
+        else:
+            self.delete_dialogue_box .close()
+            self.delete_dialogue_box  = None
+    
+    def onclick_edit(self,id):
+        
+        x = self.c.execute("select * from Schedule where id = {}".format(id))
+        
+        for i in x:
+            x = i
+        
+        self.edit_form= None
+        if self.edit_form is None:
+            self.edit_form = edit_display("Ui_files\\Schedules\\schedule_edit_form.ui",x,self)
+            self.edit_form.show()
+        else:
+            self.edit_form.close()
+            self.edit_form = None
     
     def onclick_readMore(self,id):
         x = self.c.execute("select * from Schedule where id = {}".format(id))
+        
         for i in x:
-           print(i)
-        self.readmore_button_o= None
-        if self.readmore_button_o is None:
-            self.readmore_button_o = readmore_display("Ui_files\\Schedules\\schedule_readmore_form.ui")
-            self.readmore_button_o.show()
+            x = i
+
+        self.readmore_form= None
+        if self.readmore_form is None:
+            self.readmore_form = readmore_display("Ui_files\\Schedules\\schedule_readmore_form.ui",x[4])
+            self.readmore_form.show()
         else:
-            self.readmore_button_o.close()
-            self.readmore_button_o = None
+            self.readmore_form.close()
+            self.readmore_form = None
 
     #Create schedule Menubar Action Form Open/Close
     def t_create_schedule(self):
@@ -208,9 +266,56 @@ class vedit_note(QMainWindow):
         uic.loadUi(ui_file,self)
 
 class readmore_display(QMainWindow):
-    def __init__(self,ui_file):
+    
+    def __init__(self,ui_file,discription):
         super(readmore_display,self).__init__()
         uic.loadUi(ui_file,self)
+        self.discription = discription
+        self.re_translate()
+        
+    def re_translate(self):
+        _translate = QtCore.QCoreApplication.translate
+        self.content_label_s_rm.setText(_translate("Form", "{}".format(self.discription)))
+
+class edit_display(QMainWindow):
+    
+    def __init__(self,ui_file,data,parent_data):
+        super(edit_display,self).__init__()
+        uic.loadUi(ui_file,self)
+        self.parent_data = parent_data
+        self.data = data
+        self.re_translate()
+        
+    def re_translate(self):
+        _translate = QtCore.QCoreApplication.translate
+
+class delete_display(QDialog):
+    
+    def __init__(self,ui_file, id, parent_data):
+        super(delete_display,self).__init__()
+        uic.loadUi(ui_file,self)
+        
+        self.parent_data = parent_data
+        
+        self.id = id
+        self.yes_button_s_d.clicked.connect(self.onclick_yes)
+        self.no_button_s_d.clicked.connect(self.onclick_no)
+        
+        #database variables
+        self.conn = sqlite3.connect("Cue.db")
+        self.c = self.conn.cursor()
+        
+    def onclick_yes(self):
+        self.c.execute("delete from Schedule where id="+str(self.id))
+        self.conn.commit()
+        self.parent_data.update()
+        self.close()
+        
+    def onclick_no(self):
+        self.close()
+        
+    def re_translate(self):
+        _translate = QtCore.QCoreApplication.translate
 
 app=QApplication([])
 
