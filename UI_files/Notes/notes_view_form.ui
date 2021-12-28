@@ -63,6 +63,7 @@
     </property>
     <property name="styleSheet">
      <string notr="true">color: rgb(255, 244, 156);
+selection-background-color: rgb(85, 85, 127);
 background-color: rgb(44, 47, 51);</string>
     </property>
     <item>
@@ -188,6 +189,12 @@ background-color: rgb(44, 47, 51);</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+    <property name="openExternalLinks">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

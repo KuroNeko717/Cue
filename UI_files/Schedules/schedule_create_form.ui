@@ -302,6 +302,9 @@ color: rgb(255, 255, 255);</string>
      <property name="styleSheet">
       <string notr="true">color: rgb(203, 250, 255);</string>
      </property>
+     <property name="plainText">
+      <string/>
+     </property>
     </widget>
     <widget class="QDateEdit" name="date_dateedit_s_c">
      <property name="geometry">

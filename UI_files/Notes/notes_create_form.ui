@@ -84,7 +84,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="save_button_n_c">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>380</x>
       <y>290</y>
       <width>81</width>
       <height>41</height>
@@ -104,28 +104,6 @@ color: rgb(255, 242, 167);</string>
     </property>
     <property name="text">
      <string>Save</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="delete_button_n_c">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>290</y>
-      <width>81</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 244, 156);</string>
-    </property>
-    <property name="text">
-     <string>Delete</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="title_textedit_n_c">
