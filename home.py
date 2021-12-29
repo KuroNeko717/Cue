@@ -65,6 +65,7 @@ class home_screen(QMainWindow):
     
     def setup(self):
         self.c.execute("create table if not exists Schedule(id integer primary key, name varchar(250) not null, create_date timestamp not null, occurance varchar(50) not null, discription text not null, is_notify boolean not null)")
+        self.c.execute("create table if not exists Notes(id integer primary key, title varchar(250) not null, create_date timestamp not null, discription text not null)")
 
     #Schedule generation Function Calling
     def generate_schedule(self):
@@ -304,9 +305,27 @@ class vedit_schedule(QMainWindow):
         uic.loadUi(ui_file,self)
 
 class create_note(QMainWindow):
+    
     def __init__(self,ui_file):
         super(create_note,self).__init__()
         uic.loadUi(ui_file,self)
+        
+        #database variables
+        self.conn = sqlite3.connect("Cue.db")
+        self.c = self.conn.cursor()
+        
+        self.save_button_n_c.clicked.connect(self.create_note)
+        
+    def create_note(self):
+        title = self.title_textedit_n_c.toPlainText()
+        discription = self.content_textedit_n_c.toPlainText()
+        create_date = QtCore.QDate.currentDate()
+        create_date = create_date.toString("yyyy-MM-dd")
+        
+        self.c.execute(f"insert into Notes(title,create_date,discription) values(\"{title}\",\"{create_date}\",\"{discription}\")")
+        self.conn.commit()
+        self.close()
+        
 
 class vedit_note(QMainWindow):
     def __init__(self,ui_file):
