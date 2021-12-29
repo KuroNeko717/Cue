@@ -1,3 +1,4 @@
+from xml.etree.ElementTree import ProcessingInstruction
 from PyQt5 import QtGui,QtCore
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtGui import QWindow
@@ -180,14 +181,14 @@ class home_screen(QMainWindow):
     
     def onclick_edit(self,id):
         
-        x = self.c.execute("select * from Schedule where id = {}".format(id))
+        data = self.c.execute("select * from Schedule where id = {}".format(id))
         
-        for i in x:
-            x = i
+        for i in data:
+            data = i
         
         self.edit_form= None
         if self.edit_form is None:
-            self.edit_form = edit_display("Ui_files\\Schedules\\schedule_edit_form.ui",x,self)
+            self.edit_form = create_schedule("Ui_files\\Schedules\\schedule_create_form.ui",self,type="edit",data=data)
             self.edit_form.show()
         else:
             self.edit_form.close()
@@ -219,7 +220,7 @@ class home_screen(QMainWindow):
     #Edit/view schedule Menubar Action Form Open/Close
     def t_vedit_schedule(self):
         if self.vedit_schedule is None:
-            self.vedit_schedule = vedit_schedule("Ui_files\\Schedules\\schedule_edit_form.ui")
+            self.vedit_schedule = vedit_schedule("Ui_files\\Schedules\\schedule_view_form.ui")
             self.vedit_schedule.show()
         else:
             self.vedit_schedule.close()
@@ -245,15 +246,38 @@ class home_screen(QMainWindow):
 
 
 class create_schedule(QMainWindow):
-    def __init__(self,ui_file,parent_class):
+    def __init__(self,ui_file,parent_class,type="create",data=None):
         super(create_schedule,self).__init__()
         uic.loadUi(ui_file,self)
+        
+        #Close Button
         self.parent_class = parent_class
         self.save_close_button_s_c.clicked.connect(self.create)
         
         #database variables
         self.conn = sqlite3.connect("Cue.db")
         self.c = self.conn.cursor()
+        
+        #data
+        self.data = data
+        self.type = type
+        
+        if self.type == "edit":
+            
+            if data != None:
+                self.edit()
+            
+    def edit(self):
+        self.create_new_label_s_c.setText("Edit Schedule")
+        self.name_textedit_s_c.setText(self.data[1])
+        self.occurence_combobox_s_c.setCurrentText(self.data[3])
+        self.description_plaintextedit_s_c.setPlainText(self.data[4])
+        self.notification_on_checkbox_s_c.setChecked(bool(self.data[5]))
+        remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
+        remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%H:%M:%S")
+        self.date_dateedit_s_c.setDate(QtCore.QDate.fromString(remind_date, 'yyyy-MM-dd'))
+        self.time_timeedit_s_c.setTime(QtCore.QTime.fromString(remind_time, QtCore.Qt.TextDate))
+    
         
     def create(self):
         name = self.name_textedit_s_c.toPlainText()
@@ -264,7 +288,12 @@ class create_schedule(QMainWindow):
         remind_time = self.time_timeedit_s_c.time()
         remind_datetime = datetime.datetime.combine(remind_date.toPyDate(),remind_time.toPyTime())
         
-        self.c.execute(f"insert into Schedule(name,create_date,occurance,discription,is_notify) values(\"{name}\",\"{remind_datetime}\",\"{occurance}\",\"{discription}\",\"{is_notification}\")")
+        if self.type == "create":
+            self.c.execute(f"insert into Schedule(name,create_date,occurance,discription,is_notify) values(\"{name}\",\"{remind_datetime}\",\"{occurance}\",\"{discription}\",\"{is_notification}\")")
+        elif self.type == "edit":
+            self.c.execute(f"update Schedule set name=\"{name}\" , create_date=\"{remind_datetime}\", occurance=\"{occurance}\", discription=\"{discription}\", is_notify=\"{is_notification}\"  WHERE id = {self.data[0]}")
+            print(self.data[0])
+        
         self.conn.commit()
         self.close()
         self.parent_class.update()
