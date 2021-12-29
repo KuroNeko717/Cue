@@ -4,6 +4,7 @@ from PyQt5.QtGui import QWindow
 from PyQt5.QtWidgets import QApplication, QDialog, QWidget, QMainWindow
 import sqlite3
 from functools import partial
+import datetime
 
 class home_screen(QMainWindow):
     def __init__(self,ui_file):
@@ -49,7 +50,7 @@ class home_screen(QMainWindow):
         s_date = date.toString()
         s_time = time.toString()
         
-        timestamp = "Date: {} Time {}".format(s_date,s_time)
+        timestamp = "Date: {} Time: {}".format(s_date,s_time)
         
         self.date_time_label_hs.setText(timestamp)
     
@@ -209,7 +210,7 @@ class home_screen(QMainWindow):
     #Create schedule Menubar Action Form Open/Close
     def t_create_schedule(self):
         if self.create_schedule is None:
-            self.create_schedule = create_schedule("Ui_files\\Schedules\\schedule_create_form.ui")
+            self.create_schedule = create_schedule("Ui_files\\Schedules\\schedule_create_form.ui",self)
             self.create_schedule.show()
         else:
             self.create_schedule.close()
@@ -244,9 +245,29 @@ class home_screen(QMainWindow):
 
 
 class create_schedule(QMainWindow):
-    def __init__(self,ui_file):
+    def __init__(self,ui_file,parent_class):
         super(create_schedule,self).__init__()
         uic.loadUi(ui_file,self)
+        self.parent_class = parent_class
+        self.save_close_button_s_c.clicked.connect(self.create)
+        
+        #database variables
+        self.conn = sqlite3.connect("Cue.db")
+        self.c = self.conn.cursor()
+        
+    def create(self):
+        name = self.name_textedit_s_c.toPlainText()
+        occurance = self.occurence_combobox_s_c.currentText()
+        is_notification = self.notification_on_checkbox_s_c.isChecked()
+        discription = self.description_plaintextedit_s_c.toPlainText()
+        remind_date = self.date_dateedit_s_c.date()
+        remind_time = self.time_timeedit_s_c.time()
+        remind_datetime = datetime.datetime.combine(remind_date.toPyDate(),remind_time.toPyTime())
+        
+        self.c.execute(f"insert into Schedule(name,create_date,occurance,discription,is_notify) values(\"{name}\",\"{remind_datetime}\",\"{occurance}\",\"{discription}\",\"{is_notification}\")")
+        self.conn.commit()
+        self.close()
+        self.parent_class.update()
         
 class vedit_schedule(QMainWindow):
     def __init__(self,ui_file):
@@ -286,6 +307,8 @@ class edit_display(QMainWindow):
         
     def re_translate(self):
         _translate = QtCore.QCoreApplication.translate
+        self.name_textedit_s_e.setText(self.data[1])
+        #self.date_dateedit_s_e.set
 
 class delete_display(QDialog):
     
@@ -311,9 +334,6 @@ class delete_display(QDialog):
         
     def onclick_no(self):
         self.close()
-        
-    def re_translate(self):
-        _translate = QtCore.QCoreApplication.translate
 
 app=QApplication([])
 
