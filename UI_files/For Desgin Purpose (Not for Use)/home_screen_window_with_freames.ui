@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>850</width>
+    <height>676</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(35, 39, 42);
+color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="outer_frame_hs">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>850</width>
+      <height>650</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(35, 39, 42);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="date_time_label_hs">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>771</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(213, 210, 255);</string>
+     </property>
+     <property name="text">
+      <string>Date - Current Date              Time - Current Time</string>
+     </property>
+    </widget>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>851</width>
+       <height>591</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>849</width>
+        <height>589</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QFrame" name="frame_hs">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(44, 47, 51);
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <widget class="QLabel" name="time_label_hs">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>20</y>
+            <width>151</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(213, 210, 255);</string>
+          </property>
+          <property name="text">
+           <string>Dummy Time 1</string>
+          </property>
+         </widget>
+         <widget class="Line" name="line">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>0</y>
+            <width>20</width>
+            <height>91</height>
+           </rect>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+         <widget class="QLabel" name="content_label_hs">
+          <property name="geometry">
+           <rect>
+            <x>180</x>
+            <y>10</y>
+            <width>431</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(213, 210, 255);</string>
+          </property>
+          <property name="text">
+           <string>To-do 1</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="readmore_button_hs">
+          <property name="geometry">
+           <rect>
+            <x>380</x>
+            <y>60</y>
+            <width>121</width>
+            <height>28</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(213, 210, 255);</string>
+          </property>
+          <property name="text">
+           <string>Read More</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>690</x>
+            <y>30</y>
+            <width>41</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>E</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="geometry">
+           <rect>
+            <x>730</x>
+            <y>30</y>
+            <width>41</width>
+            <height>31</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>D</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>850</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuNew">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>Schedules</string>
+    </property>
+    <addaction name="actioncreate_s_hs"/>
+    <addaction name="actionedit_s_hs"/>
+    <addaction name="actionview_s_hs"/>
+   </widget>
+   <widget class="QMenu" name="menuNotes">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>Notes</string>
+    </property>
+    <addaction name="actioncreate_n_hs"/>
+    <addaction name="actionedit_n_hs"/>
+    <addaction name="actionview_n_hs"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>Options</string>
+    </property>
+    <addaction name="actionfiles_in_local_folder_hs"/>
+    <addaction name="actioncreate_guide_hs"/>
+    <addaction name="actioncreate_cue_srs_hs"/>
+   </widget>
+   <addaction name="menuNew"/>
+   <addaction name="menuNotes"/>
+   <addaction name="menuOptions"/>
+  </widget>
+  <action name="actionCreate_Reminder_Schedule">
+   <property name="text">
+    <string>Create Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionView_Reminder_Schedule">
+   <property name="text">
+    <string>View Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionEdit_Reminder_Schedule">
+   <property name="text">
+    <string>Edit Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionFiles_in_local_folders">
+   <property name="text">
+    <string>Files in Local Folders</string>
+   </property>
+  </action>
+  <action name="actionCredits_Documentation">
+   <property name="text">
+    <string>Credits/Documentation</string>
+   </property>
+  </action>
+  <action name="actionCreate_Reminder_Schedule_2">
+   <property name="text">
+    <string>Create Reminder/Schedule</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionView_Reminder_Schedule_2">
+   <property name="text">
+    <string>View Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actioncreate_s_hs">
+   <property name="text">
+    <string>Create New Schedule</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionView_Reminder_Schedule_3">
+   <property name="text">
+    <string>View Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionEdit_Reminder_Schedule_2">
+   <property name="text">
+    <string>Edit Reminder/Schedule</string>
+   </property>
+  </action>
+  <action name="actionfiles_in_local_folder_hs">
+   <property name="text">
+    <string>Show file location</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actioncreate_guide_hs">
+   <property name="text">
+    <string>Guide</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actioncreate_n_hs">
+   <property name="text">
+    <string>Create Notes</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionedit_n_hs">
+   <property name="text">
+    <string>Edit Notes</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionedit_s_hs">
+   <property name="text">
+    <string>Edit Schedule</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actioncreate_cue_srs_hs">
+   <property name="text">
+    <string>SRS Document for Cue</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionview_s_hs">
+   <property name="text">
+    <string>View Schedule</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionview_n_hs">
+   <property name="text">
+    <string>View Notes</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="img.qrc"/>
+ </resources>
+ <connections/>
+</ui>
