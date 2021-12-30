@@ -252,6 +252,8 @@ class create_schedule(QMainWindow):
     def __init__(self,ui_file,parent_class,type="create",data=None):
         super(create_schedule,self).__init__()
         uic.loadUi(ui_file,self)
+        self.date_dateedit_s_c.setDate(QtCore.QDate.currentDate())
+        self.time_timeedit_s_c.setTime(QtCore.QTime.currentTime())
         
         #Close Button
         self.parent_class = parent_class
