@@ -1,3 +1,4 @@
+#################### Importing Libraries #########################
 from xml.etree.ElementTree import ProcessingInstruction
 from PyQt5 import QtGui,QtCore, QtWebEngineWidgets
 from PyQt5 import uic, QtWidgets
@@ -8,28 +9,37 @@ from functools import partial
 import datetime
 import os
 
+#Class for the Cue Main Window
 class home_screen(QMainWindow):
     def __init__(self,ui_file):
         super(home_screen,self).__init__()
         uic.loadUi(ui_file,self)
         
-        #Create Schedule Menubar Action
+        ################# Connecting all the PyQt5 elements to their respective functions ##################
+        ############################## Here the t stands for triggered #####################################
+        
+        #Connecting the actionCreate for creating a shedule in menubar to t_create_schedule function
         self.create_schedule = None
         self.actioncreate_s_hs.triggered.connect(self.t_create_schedule)
         
-        #Edit/View Schedule Menubar Action
+        #Connecting the actionCreate for viewing schedules in menubar to the t_vedit_schedule function
         self.vedit_schedule = None
         self.actionview_s_hs.triggered.connect(self.t_vedit_schedule)
 
-        #Create Note Menubar Action
+        #Connecting the actionCreate for creating notes in menubar to the t_create_note function
         self.create_note = None
         self.actioncreate_n_hs.triggered.connect(self.t_create_note)
 
-        #Option SRS
+        #Connecting the actionCreate for viewing notes in menubar to the t_vedit_note function
+        self.vedit_note = None
+        self.actionview_n_hs.triggered.connect(self.t_vedit_note)
+        
+
+        #Connecting the actionCreate for viewing SRS in menubar to the t_doc_view_srs function
         self.option_srs= None
         self.actioncreate_cue_srs_hs.triggered.connect(self.t_doc_view_srs)
         
-        #database variables
+        #Database variables
         self.conn = sqlite3.connect("Cue.db")
         self.c = self.conn.cursor()
         
@@ -40,14 +50,12 @@ class home_screen(QMainWindow):
         
         #frames variable
         self.frames = []
-        
-        #View/ Edit Note Menubar Action
-        self.vedit_note = None
-        self.actionview_n_hs.triggered.connect(self.t_vedit_note)
         self.generate_schedule()
         self.setup()
         self.show()
+        
     
+    #Updating the date and time on the MainWindow Homescreen
     def time_update(self):
         
         date = QtCore.QDate.currentDate()
@@ -57,9 +65,9 @@ class home_screen(QMainWindow):
         s_time = time.toString()
         
         timestamp = "Date: {} Time: {}".format(s_date,s_time)
-        
         self.date_time_label_hs.setText(timestamp)
     
+    #Updating the entire MainWindow Homescreen 
     def update(self):
         
         for i in reversed(range(self.verticalLayout.count())): 
@@ -72,9 +80,8 @@ class home_screen(QMainWindow):
         self.c.execute("create table if not exists Schedule(id integer primary key, name varchar(250) not null, create_date timestamp not null, occurance varchar(50) not null, discription text not null, is_notify boolean not null)")
         self.c.execute("create table if not exists Notes(id integer primary key, title varchar(250) not null, create_date timestamp not null, discription text not null)")
 
-    #Schedule generation Function Calling
+    #Generating/ Creating the schedules in Homescreen to display today's schedules
     def generate_schedule(self):
-        
         data = self.c.execute("select * from Schedule where create_date >= date('now','-1 day') and create_date <= date('now','+1 day')")
         
         for i in data:
@@ -82,8 +89,9 @@ class home_screen(QMainWindow):
             self.frames.append(temp)
             self.verticalLayout.addWidget(temp)
 
+    #function for creating and giving values to the PyQt5 elements for each schedule in the comescreen
     def _gen_schedule(self,time,title,id):
-        
+        #Creating the PyQt5 elements such as frame, label, buttons etc.
         frame = QtWidgets.QFrame()
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -157,16 +165,14 @@ class home_screen(QMainWindow):
         delete_button.setStyleSheet("color: rgb(213, 210, 255);")
         delete_button.setObjectName("delete_button")
 
+        #Assigning values to the schedule elements in the homescreen
         _translate = QtCore.QCoreApplication.translate
         time_label.setText(_translate("MainWindow", "{}".format(time)))
         content_label.setText(_translate("MainWindow", "{}".format(title)))
         readmore_button.setText(_translate("MainWindow", "Read More"))
         edit_button.setText(_translate("MainWindow", "Edit"))
         delete_button.setText(_translate("MainWindow", "Delete"))
-
-        
         content_label.setText(_translate("MainWindow", "{}".format(title)))
-        
         readmore_button.clicked.connect(partial(self.onclick_readMore, id))
         edit_button.clicked.connect(partial(self.onclick_edit,id))
         delete_button.clicked.connect(partial(self.onclick_delete,id))
