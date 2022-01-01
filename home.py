@@ -8,6 +8,7 @@ import sqlite3
 from functools import partial
 import datetime
 import os
+import subprocess
 
 #Class for the Cue Main Window
 class home_screen(QMainWindow):
@@ -38,6 +39,10 @@ class home_screen(QMainWindow):
         #Connecting the actionCreate for viewing SRS in menubar to the t_doc_view_srs function
         self.option_srs= None
         self.actioncreate_cue_srs_hs.triggered.connect(self.t_doc_view_srs)
+
+        #Connecting the actionCreate for viewing file locaiton in menubar to the t_file_loc function
+        self.option_file_loc= None
+        self.actionfiles_in_local_folder_hs.triggered.connect(self.t_file_loc)
         
         #Database variables
         self.conn = sqlite3.connect("Cue.db")
@@ -76,6 +81,7 @@ class home_screen(QMainWindow):
         self.frames = []
         self.generate_schedule()
     
+    #Function to Create the database for Cue
     def setup(self):
         self.c.execute("create table if not exists Schedule(id integer primary key, name varchar(250) not null, create_date timestamp not null, occurance varchar(50) not null, discription text not null, is_notify boolean not null)")
         self.c.execute("create table if not exists Notes(id integer primary key, title varchar(250) not null, create_date timestamp not null, discription text not null)")
@@ -179,6 +185,7 @@ class home_screen(QMainWindow):
         
         return frame
     
+    #Function for when the delete button is clicked for a schedule in the homesreen
     def onclick_delete(self,id):
         x = self.c.execute("select * from Schedule where id = {}".format(id))
         
@@ -193,6 +200,7 @@ class home_screen(QMainWindow):
             self.delete_dialogue_box .close()
             self.delete_dialogue_box  = None
     
+    #Function for when the edit button is clicked for a schedule in the homesreen
     def onclick_edit(self,id):
         
         data = self.c.execute("select * from Schedule where id = {}".format(id))
@@ -207,7 +215,8 @@ class home_screen(QMainWindow):
         else:
             self.edit_form.close()
             self.edit_form = None
-    
+
+    #Function for when the read more button is clicked for a schedule in the homesreen
     def onclick_readMore(self,id):
         x = self.c.execute("select * from Schedule where id = {}".format(id))
         
@@ -222,7 +231,7 @@ class home_screen(QMainWindow):
             self.readmore_form.close()
             self.readmore_form = None
 
-    #Create schedule Menubar Action Form Open/Close
+    #Function to pass the path of the ui file for create schedule
     def t_create_schedule(self):
         if self.create_schedule is None:
             self.create_schedule = create_schedule("Ui_files\\Schedules\\schedule_create_form.ui",self)
@@ -231,7 +240,7 @@ class home_screen(QMainWindow):
             self.create_schedule.close()
             self.create_schedule = None
             
-    #Edit/view schedule Menubar Action Form Open/Close
+    #Function to pass the path of the ui file for viewing schedule
     def t_vedit_schedule(self):
         if self.vedit_schedule is None:
             self.vedit_schedule = vedit_schedule("Ui_files\\Schedules\\schedule_view_form.ui")
@@ -240,7 +249,7 @@ class home_screen(QMainWindow):
             self.vedit_schedule.close()
             self.vedit_schedule = None
 
-    #Create Note Menubar Action Form Open/Close
+    #Function to pass the path of the ui file for creating notes
     def t_create_note(self):
         if self.create_note is None:
             self.create_note = create_note("Ui_files\\Notes\\notes_create_form.ui")
@@ -258,12 +267,20 @@ class home_screen(QMainWindow):
             self.vedit_note.close()
             self.vedit_note = None
 
-    #Cue_SRS.pdf location path
+    #Function to pass Cue_SRS.pdf location path
     def t_doc_view_srs(self):
         if self.option_srs is None:
             filename= os.path.abspath("Documents\Cue_SRS.pdf")
-            self.option_srs=OptionsDisplay(filename,self.option_srs)
+            self.option_srs=OptionDisplaySRS(filename,self.option_srs)
 
+    def t_file_loc(self):
+        if self.option_file_loc is None:
+            filename= os.path.abspath("home.py")
+            self.option_file_loc=OptionDisplayF_loc(filename,self.option_file_loc)
+            
+
+
+#Class for creating the schedules
 class create_schedule(QMainWindow):
     def __init__(self,ui_file,parent_class,type="create",data=None):
         super(create_schedule,self).__init__()
@@ -287,7 +304,8 @@ class create_schedule(QMainWindow):
             
             if data != None:
                 self.edit()
-            
+    
+    #Formating the values shown in the schedule edit window
     def edit(self):
         self.create_new_label_s_c.setText("Edit Schedule")
         self.name_textedit_s_c.setText(self.data[1])
@@ -403,9 +421,10 @@ class delete_display(QDialog):
     def onclick_no(self):
         self.close()
 
-class OptionsDisplay(QMainWindow):
+#Class for the Menubar Option SRS Display function
+class OptionDisplaySRS(QMainWindow):
     def __init__(self,filename,option_srs):
-        super(OptionsDisplay,self).__init__()
+        super(OptionDisplaySRS,self).__init__()
         self.view = QtWebEngineWidgets.QWebEngineView()
         self.gen_display(filename,option_srs)
     
@@ -420,6 +439,21 @@ class OptionsDisplay(QMainWindow):
         else:
             self.view.close()
             option_srs= None
+    
+class OptionDisplayF_loc(QMainWindow):
+    def __init__(self,filename,option_file_loc):
+        super(OptionDisplayF_loc,self).__init__()
+        self.show_file_loc(filename,option_file_loc)
+    
+    def show_file_loc(self,filename,option_file_loc):
+        FILEBROWSER_PATH = os.path.join(os.getenv('WINDIR'), 'explorer.exe')
+        # explorer would choke on forward slashes
+        path = os.path.normpath(filename)
+
+        if os.path.isdir(path):
+            subprocess.run([FILEBROWSER_PATH, path])
+        elif os.path.isfile(path):
+            subprocess.run([FILEBROWSER_PATH, '/select,', path])
 
 app=QApplication([])
 
