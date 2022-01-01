@@ -439,7 +439,8 @@ class OptionDisplaySRS(QMainWindow):
         else:
             self.view.close()
             option_srs= None
-    
+
+#Class for the Menubar Option Show File Location function
 class OptionDisplayF_loc(QMainWindow):
     def __init__(self,filename,option_file_loc):
         super(OptionDisplayF_loc,self).__init__()
