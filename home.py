@@ -1,11 +1,12 @@
 from xml.etree.ElementTree import ProcessingInstruction
-from PyQt5 import QtGui,QtCore
+from PyQt5 import QtGui,QtCore, QtWebEngineWidgets
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtGui import QWindow
 from PyQt5.QtWidgets import QApplication, QDialog, QWidget, QMainWindow
 import sqlite3
 from functools import partial
 import datetime
+import os
 
 class home_screen(QMainWindow):
     def __init__(self,ui_file):
@@ -23,6 +24,10 @@ class home_screen(QMainWindow):
         #Create Note Menubar Action
         self.create_note = None
         self.actioncreate_n_hs.triggered.connect(self.t_create_note)
+
+        #Option SRS
+        self.option_srs= None
+        self.actioncreate_cue_srs_hs.triggered.connect(self.t_doc_view_srs)
         
         #database variables
         self.conn = sqlite3.connect("Cue.db")
@@ -247,6 +252,11 @@ class home_screen(QMainWindow):
             self.vedit_note.close()
             self.vedit_note = None
 
+    #Cue_SRS.pdf location path
+    def t_doc_view_srs(self):
+        if self.option_srs is None:
+            filename= os.path.abspath("Documents\Cue_SRS.pdf")
+            self.option_srs=OptionsDisplay(filename,self.option_srs)
 
 class create_schedule(QMainWindow):
     def __init__(self,ui_file,parent_class,type="create",data=None):
@@ -386,6 +396,24 @@ class delete_display(QDialog):
         
     def onclick_no(self):
         self.close()
+
+class OptionsDisplay(QMainWindow):
+    def __init__(self,filename,option_srs):
+        super(OptionsDisplay,self).__init__()
+        self.view = QtWebEngineWidgets.QWebEngineView()
+        self.gen_display(filename,option_srs)
+    
+    def gen_display(self,filename,option_srs):
+        settings = self.view.settings()
+        settings.setAttribute(QtWebEngineWidgets.QWebEngineSettings.PluginsEnabled, True)
+        url = QtCore.QUrl.fromLocalFile(filename)
+        self.view.load(url)
+        self.view.resize(640, 480)
+        if option_srs is None:
+            self.view.show()
+        else:
+            self.view.close()
+            option_srs= None
 
 app=QApplication([])
 
