@@ -81,7 +81,7 @@ class home_screen(QMainWindow):
         self.frames = []
         self.generate_schedule()
     
-    #Function to Create the database for Cue
+    #Function to Create the table in the Cue Database
     def setup(self):
         self.c.execute("create table if not exists Schedule(id integer primary key, name varchar(250) not null, create_date timestamp not null, occurance varchar(50) not null, discription text not null, is_notify boolean not null)")
         self.c.execute("create table if not exists Notes(id integer primary key, title varchar(250) not null, create_date timestamp not null, discription text not null)")
@@ -231,7 +231,7 @@ class home_screen(QMainWindow):
             self.readmore_form.close()
             self.readmore_form = None
 
-    #Function to pass the path of the ui file for create schedule
+    #Function to pass the path of the ui file for Create Schedule
     def t_create_schedule(self):
         if self.create_schedule is None:
             self.create_schedule = create_schedule("Ui_files\\Schedules\\schedule_create_form.ui",self)
@@ -240,7 +240,7 @@ class home_screen(QMainWindow):
             self.create_schedule.close()
             self.create_schedule = None
             
-    #Function to pass the path of the ui file for viewing schedule
+    #Function to pass the path of the ui file for Viewing Schedule
     def t_vedit_schedule(self):
         if self.vedit_schedule is None:
             self.vedit_schedule = vedit_schedule("Ui_files\\Schedules\\schedule_view_form.ui")
@@ -249,7 +249,7 @@ class home_screen(QMainWindow):
             self.vedit_schedule.close()
             self.vedit_schedule = None
 
-    #Function to pass the path of the ui file for creating notes
+    #Function to pass the path of the ui file for Creating Notes
     def t_create_note(self):
         if self.create_note is None:
             self.create_note = create_note("Ui_files\\Notes\\notes_create_form.ui")
@@ -258,7 +258,7 @@ class home_screen(QMainWindow):
             self.create_note.close()
             self.create_note = None
 
-    #View/Edit Note Menubar Action Form Open/Close
+    #Function to pass the path of the ui file for Viewing Schedules
     def t_vedit_note(self):
         if self.vedit_note is None:
             self.vedit_note = vedit_note("Ui_files\\Notes\\notes_view_form.ui")
@@ -273,11 +273,11 @@ class home_screen(QMainWindow):
             filename= os.path.abspath("Documents\Cue_SRS.pdf")
             self.option_srs=OptionDisplaySRS(filename,self.option_srs)
 
+    #Function to pass the file location directory path
     def t_file_loc(self):
         if self.option_file_loc is None:
             filename= os.path.abspath("home.py")
-            self.option_file_loc=OptionDisplayF_loc(filename,self.option_file_loc)
-            
+            self.option_file_loc=OptionDisplayF_loc(filename,self.option_file_loc)           
 
 
 #Class for creating the schedules
