@@ -273,6 +273,7 @@ class home_screen(QMainWindow):
             filename= os.path.abspath("Documents\Cue_SRS.pdf")
             self.option_srs=OptionDisplaySRS(filename,self.option_srs)
 
+    #Function to pass file location path
     def t_file_loc(self):
         if self.option_file_loc is None:
             filename= os.path.abspath("home.py")
@@ -312,8 +313,8 @@ class create_schedule(QMainWindow):
         self.occurence_combobox_s_c.setCurrentText(self.data[3])
         self.description_plaintextedit_s_c.setPlainText(self.data[4])
         self.notification_on_checkbox_s_c.setChecked(bool(self.data[5]))
-        remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
-        remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%H:%M:%S")
+        remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%Y-%m-%d")
+        remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M:%S")
         self.date_dateedit_s_c.setDate(QtCore.QDate.fromString(remind_date, 'yyyy-MM-dd'))
         self.time_timeedit_s_c.setTime(QtCore.QTime.fromString(remind_time, QtCore.Qt.TextDate))
     

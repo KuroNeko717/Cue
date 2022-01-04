@@ -361,6 +361,9 @@ color: rgb(255, 255, 255);</string>
      <property name="styleSheet">
       <string notr="true">color: rgb(203, 250, 255);</string>
      </property>
+     <property name="displayFormat">
+      <string>HH:mm:AP</string>
+     </property>
     </widget>
     <widget class="QLabel" name="time_label_s_c">
      <property name="geometry">
