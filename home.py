@@ -628,7 +628,7 @@ class vedit_note(QMainWindow):
         return frame
 
 
-#Function for when the Title or description is clicked for a Note when viewing notes
+    #Function for when the Title or description is clicked for a Note when viewing notes
     def onclick_readMore_notes(self,id,*args, **kwargs):
         x = self.c.execute("select * from Notes where id = {}".format(id))
         
@@ -638,7 +638,7 @@ class vedit_note(QMainWindow):
         
         self.readmore_form= None
         if self.readmore_form is None:
-            self.readmore_form = readmore_display_notes("Ui_files\\Notes\\notes_readmore_form.ui",x[3],x[2],x[1])
+            self.readmore_form = readmore_display_notes("Ui_files\\Notes\\notes_readmore_form.ui",x[3],x[2],x[1],id,self)
             self.readmore_form.show()
         else:
             self.readmore_form.close()
@@ -646,19 +646,20 @@ class vedit_note(QMainWindow):
 
 class readmore_display_notes(QMainWindow):
     
-    def __init__(self,ui_file,discription,date,title):
+    def __init__(self,ui_file,discription,date,title,id,parent_data):
         super(readmore_display_notes,self).__init__()
         uic.loadUi(ui_file,self)
         self.discription = discription
         self.date=date
         self.title=title
+        self.parent_data = parent_data
         
         #database variables
         self.conn = sqlite3.connect("Cue.db")
         self.c = self.conn.cursor()
-        self.re_translate()
+        self.re_translate(id)
 
-    def re_translate(self):
+    def re_translate(self,id):
         _translate = QtCore.QCoreApplication.translate
         self.content.setText(_translate("Form", "{}".format(self.discription)))
         self.label_date.setText(_translate("Form", "Date Created: "+"{}".format(self.date)))
@@ -667,39 +668,45 @@ class readmore_display_notes(QMainWindow):
 
 #Function for when the delete button is clicked for a note
     def onclick_delete_notes(self,id):
-        x = self.c.execute("select * from Notes where id = \"{}\"".format(id))
+        x = self.c.execute(f"select * from Notes where id = \"{id}\"")
         
         for i in x:
-            x = i
+            data = i
         
         self.delete_dialogue_box = None
         if self.delete_dialogue_box  is None:
-            self.delete_dialogue_box  = delete_notes_dialog("Ui_files\\Notes\\notes_delete_dialogbox.ui",x[0],self)
-            self.delete_dialogue_box .show()
+            self.delete_dialogue_box  = delete_notes_dialog("Ui_files\\Notes\\notes_delete_dialogbox.ui",data[0],self,self.parent_data)
         else:
-            self.delete_dialogue_box .close()
+            self.delete_dialogue_box.close()
             self.delete_dialogue_box  = None
+
+
 
 class delete_notes_dialog(QDialog):
     
-    def __init__(self,ui_file, id, parent_data):
+    def __init__(self,ui_file, id, parent_data,super_parent):
         super(delete_notes_dialog,self).__init__()
         uic.loadUi(ui_file,self)
         
+        #database variables
+        self.conn = sqlite3.connect("Cue.db")
+        self.c = self.conn.cursor()
+        
+        self.super_parent = super_parent
         self.parent_data = parent_data
         
         self.id = id
         self.confirm_button_n_d.clicked.connect(self.onclick_yes)
         self.cancel_button_n_d.clicked.connect(self.onclick_no)
         
-        #database variables
-        self.conn = sqlite3.connect("Cue.db")
-        self.c = self.conn.cursor()
+        self.show()
+    
         
     def onclick_yes(self):
         self.c.execute("delete from Notes where id="+str(self.id))
         self.conn.commit()
-        self.parent_data.update_notes()
+        self.super_parent.update_notes()
+        self.parent_data.close()
         self.close()
         
     def onclick_no(self):
