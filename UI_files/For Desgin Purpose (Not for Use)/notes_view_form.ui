@@ -6,36 +6,40 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>470</width>
-    <height>340</height>
+    <width>850</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>470</width>
-    <height>340</height>
+    <width>850</width>
+    <height>650</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>470</width>
-    <height>340</height>
+    <width>850</width>
+    <height>650</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(35, 39, 42);</string>
+   <string notr="true">background-color: rgb(35, 39, 42);
+color: rgb(255, 255, 255);</string>
   </property>
-  <widget class="QFrame" name="frame_n_v">
+  <widget class="QFrame" name="outer_frame_s_v">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>471</width>
-     <height>341</height>
+     <width>850</width>
+     <height>650</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(35, 39, 42);</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -43,159 +47,195 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QComboBox" name="title_combobox_n_v">
+   <widget class="QLabel" name="view_label_s_v">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>19</y>
-      <width>111</width>
+      <x>30</x>
+      <y>20</y>
+      <width>201</width>
       <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 244, 156);
-selection-background-color: rgb(85, 85, 127);
-background-color: rgb(44, 47, 51);</string>
-    </property>
-    <item>
-     <property name="text">
-      <string>Title 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Title 2</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Title 3</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Title 4</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Title 5</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QLabel" name="date_label_n_v">
-    <property name="geometry">
-     <rect>
-      <x>340</x>
-      <y>19</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>12</pointsize>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(255, 244, 156);
-background-color: rgb(44, 47, 51);
-</string>
+     <string notr="true">\</string>
     </property>
     <property name="text">
-     <string>Date Created</string>
+     <string>View Notes</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="delete_button_n_v">
+   <widget class="QFrame" name="center_frame_s_v">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>290</y>
-      <width>81</width>
-      <height>41</height>
+      <x>9</x>
+      <y>69</y>
+      <width>831</width>
+      <height>571</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>12</pointsize>
-     </font>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(35, 39, 42);
-color: rgb(255, 244, 156);</string>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
     </property>
-    <property name="text">
-     <string>Delete</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="edit_button_n_v">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>290</y>
-      <width>81</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(35, 39, 42);
-color: rgb(255, 244, 156);</string>
-    </property>
-    <property name="text">
-     <string>Edit</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="content_label_n_v">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>451</width>
-      <height>221</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::RightToLeft</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(255, 244, 156);
-background-color: rgb(44, 47, 51);</string>
-    </property>
-    <property name="text">
-     <string>Content</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-    <property name="openExternalLinks">
-     <bool>true</bool>
-    </property>
+    <widget class="QLabel" name="label_search">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>61</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Search:</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="search">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>20</y>
+       <width>231</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>831</width>
+       <height>501</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>829</width>
+        <height>499</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QFrame" name="frame">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>5</number>
+         </property>
+         <property name="midLineWidth">
+          <number>5</number>
+         </property>
+         <widget class="QLabel" name="label_title">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>10</y>
+            <width>131</width>
+            <height>81</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(44, 47, 51);</string>
+          </property>
+          <property name="text">
+           <string>Title</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_description">
+          <property name="geometry">
+           <rect>
+            <x>130</x>
+            <y>10</y>
+            <width>671</width>
+            <height>81</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(170, 255, 127);
+color: rgb(0, 0, 0);</string>
+          </property>
+          <property name="text">
+           <string>Description</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_date_created">
+          <property name="geometry">
+           <rect>
+            <x>660</x>
+            <y>60</y>
+            <width>141</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(170, 255, 127);
+color: rgb(0, 0, 0);</string>
+          </property>
+          <property name="text">
+           <string>Date Created: 24/12/2021</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
    </widget>
   </widget>
  </widget>

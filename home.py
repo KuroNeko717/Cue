@@ -2,6 +2,7 @@
 from xml.etree.ElementTree import ProcessingInstruction
 from PyQt5 import QtGui,QtCore, QtWebEngineWidgets
 from PyQt5 import uic, QtWidgets
+from PySide6.QtCore import QObject, Signal, Slot  
 from PyQt5.QtGui import QWindow
 from PyQt5.QtWidgets import QApplication, QDialog, QWidget, QMainWindow
 import sqlite3
@@ -81,10 +82,11 @@ class home_screen(QMainWindow):
         self.frames = []
         self.generate_schedule()
     
-    #Function to Create the database for Cue
+    #Function to Create the table in the Cue Database
     def setup(self):
         self.c.execute("create table if not exists Schedule(id integer primary key, name varchar(250) not null, create_date timestamp not null, occurance varchar(50) not null, discription text not null, is_notify boolean not null)")
         self.c.execute("create table if not exists Notes(id integer primary key, title varchar(250) not null, create_date timestamp not null, discription text not null)")
+
 
     #Generating/ Creating the schedules in Homescreen to display today's schedules
     def generate_schedule(self):
@@ -231,7 +233,7 @@ class home_screen(QMainWindow):
             self.readmore_form.close()
             self.readmore_form = None
 
-    #Function to pass the path of the ui file for create schedule
+    #Function to pass the path of the ui file for Create Schedule
     def t_create_schedule(self):
         if self.create_schedule is None:
             self.create_schedule = create_schedule("Ui_files\\Schedules\\schedule_create_form.ui",self)
@@ -240,7 +242,7 @@ class home_screen(QMainWindow):
             self.create_schedule.close()
             self.create_schedule = None
             
-    #Function to pass the path of the ui file for viewing schedule
+    #Function to pass the path of the ui file for Viewing Schedule
     def t_vedit_schedule(self):
         if self.vedit_schedule is None:
             self.vedit_schedule = vedit_schedule("Ui_files\\Schedules\\schedule_view_form.ui")
@@ -249,7 +251,7 @@ class home_screen(QMainWindow):
             self.vedit_schedule.close()
             self.vedit_schedule = None
 
-    #Function to pass the path of the ui file for creating notes
+    #Function to pass the path of the ui file for Creating Notes
     def t_create_note(self):
         if self.create_note is None:
             self.create_note = create_note("Ui_files\\Notes\\notes_create_form.ui")
@@ -258,11 +260,10 @@ class home_screen(QMainWindow):
             self.create_note.close()
             self.create_note = None
 
-    #View/Edit Note Menubar Action Form Open/Close
+    #Function to pass the path of the ui file for Viewing Schedules
     def t_vedit_note(self):
         if self.vedit_note is None:
-            self.vedit_note = vedit_note("Ui_files\\Notes\\notes_view_form.ui")
-            self.vedit_note.show()
+            self.vedit_note = vedit_note("Ui_files\\Notes\\notes_view_form.ui",self)
         else:
             self.vedit_note.close()
             self.vedit_note = None
@@ -277,8 +278,7 @@ class home_screen(QMainWindow):
     def t_file_loc(self):
         if self.option_file_loc is None:
             filename= os.path.abspath("home.py")
-            self.option_file_loc=OptionDisplayF_loc(filename,self.option_file_loc)
-            
+            self.option_file_loc=OptionDisplayF_loc(filename,self.option_file_loc)           
 
 
 #Class for creating the schedules
@@ -313,8 +313,13 @@ class create_schedule(QMainWindow):
         self.occurence_combobox_s_c.setCurrentText(self.data[3])
         self.description_plaintextedit_s_c.setPlainText(self.data[4])
         self.notification_on_checkbox_s_c.setChecked(bool(self.data[5]))
-        remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%Y-%m-%d")
-        remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M:%S")
+        try:
+            remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
+            remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%H:%M:%S")
+        except:
+            remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%Y-%m-%d")
+            remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M:%S")  
+
         self.date_dateedit_s_c.setDate(QtCore.QDate.fromString(remind_date, 'yyyy-MM-dd'))
         self.time_timeedit_s_c.setTime(QtCore.QTime.fromString(remind_time, QtCore.Qt.TextDate))
     
@@ -367,9 +372,164 @@ class create_note(QMainWindow):
         
 
 class vedit_note(QMainWindow):
-    def __init__(self,ui_file):
-        super(vedit_note,self).__init__()
+    def __init__(self,ui_file,parent_class,*args, **kwargs):
+        super(vedit_note,self).__init__(*args, **kwargs)
         uic.loadUi(ui_file,self)
+
+        self.nframes = []
+        self.parent_class = parent_class
+
+        #database variables
+        self.conn = sqlite3.connect("Cue.db")
+        self.c = self.conn.cursor()
+
+        self.generate_note()
+        self.show()
+
+    def generate_note(self):
+        search_text=self.search.toPlainText()
+
+        if search_text != "" and search_text != None:
+            data=self.c.execute(f"select* from Notes where title like \"{search_text}\"")
+        else:
+            data=self.c.execute(f"select* from Notes")
+
+        for i in data:
+            temp=self._gen_note(i[1],i[3],i[2],i[0])
+            self.nframes.append(temp)
+            self.verticalLayout.addWidget(temp)
+        self.search.textChanged.connect(self.update_notes)
+
+    def update_notes(self):
+        for i in reversed(range(self.verticalLayout.count())): 
+            self.verticalLayout.itemAt(i).widget().setParent(None)
+            
+        self.nframes = []
+        self.generate_note()
+        
+    def _gen_note(self,title,description,date,id):
+        frame = QtWidgets.QFrame()
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(frame.sizePolicy().hasHeightForWidth())
+        frame.setSizePolicy(sizePolicy)
+        frame.setMinimumSize(QtCore.QSize(0, 100))
+        frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        frame.setLineWidth(5)
+        frame.setMidLineWidth(5)
+        frame.setObjectName("frame")
+        label_title = QtWidgets.QLabel(frame)
+        label_title.setGeometry(QtCore.QRect(0, 10, 131, 81))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        label_title.setFont(font)
+        label_title.setStyleSheet("background-color: rgb(44, 47, 51);")
+        label_title.setAlignment(QtCore.Qt.AlignCenter)
+        label_title.setObjectName("label_title")
+        label_description = QtWidgets.QLabel(frame)
+        label_description.setGeometry(QtCore.QRect(130, 10, 671, 81))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(14)
+        label_description.setFont(font)
+        label_description.setStyleSheet("background-color: rgb(170, 255, 127);\n" "color: rgb(0, 0, 0);")
+        label_description.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        label_description.setObjectName("label_description")
+        label_date_created = QtWidgets.QLabel(frame)
+        label_date_created.setGeometry(QtCore.QRect(660, 60, 141, 21))
+        label_date_created.setStyleSheet("background-color: rgb(170, 255, 127);\n" "color: rgb(0, 0, 0);")
+        label_date_created.setObjectName("label_date_created")
+        
+        #Assigning values to the schedule elements in the homescreen
+        _translate = QtCore.QCoreApplication.translate
+        label_title.setText(_translate("MainWindow", "{}".format(title)))
+        label_description.setText(_translate("MainWindow", "{}".format(description)))
+        label_date_created.setText(_translate("MainWindow","Date Created: "+"{}".format(date)))
+        label_title.mousePressEvent=partial(self.onclick_readMore_notes,id)
+        label_description.mousePressEvent=partial(self.onclick_readMore_notes,id)
+
+        return frame
+
+
+#Function for when the Title or description is clicked for a Note when viewing notes
+    def onclick_readMore_notes(self,id,*args, **kwargs):
+        x = self.c.execute("select * from Notes where id = {}".format(id))
+        
+        
+        for i in x:
+            x = i
+        
+        self.readmore_form= None
+        if self.readmore_form is None:
+            self.readmore_form = readmore_display_notes("Ui_files\\Notes\\notes_readmore_form.ui",x[3],x[2],x[1])
+            self.readmore_form.show()
+        else:
+            self.readmore_form.close()
+            self.readmore_form = None
+
+class readmore_display_notes(QMainWindow):
+    
+    def __init__(self,ui_file,discription,date,title):
+        super(readmore_display_notes,self).__init__()
+        uic.loadUi(ui_file,self)
+        self.discription = discription
+        self.date=date
+        self.title=title
+        
+        #database variables
+        self.conn = sqlite3.connect("Cue.db")
+        self.c = self.conn.cursor()
+        self.re_translate()
+
+    def re_translate(self):
+        _translate = QtCore.QCoreApplication.translate
+        self.content.setText(_translate("Form", "{}".format(self.discription)))
+        self.label_date.setText(_translate("Form", "Date Created: "+"{}".format(self.date)))
+        self.label_title.setText(_translate("Form", "{}".format(self.title)))
+        self.delete_button_notes.clicked.connect(partial(self.onclick_delete_notes,id))
+
+#Function for when the delete button is clicked for a note
+    def onclick_delete_notes(self,id):
+        x = self.c.execute("select * from Notes where id = \"{}\"".format(id))
+        
+        for i in x:
+            x = i
+        
+        self.delete_dialogue_box = None
+        if self.delete_dialogue_box  is None:
+            self.delete_dialogue_box  = delete_notes_dialog("Ui_files\\Notes\\notes_delete_dialogbox.ui",x[0],self)
+            self.delete_dialogue_box .show()
+        else:
+            self.delete_dialogue_box .close()
+            self.delete_dialogue_box  = None
+
+class delete_notes_dialog(QDialog):
+    
+    def __init__(self,ui_file, id, parent_data):
+        super(delete_notes_dialog,self).__init__()
+        uic.loadUi(ui_file,self)
+        
+        self.parent_data = parent_data
+        
+        self.id = id
+        self.confirm_button_n_d.clicked.connect(self.onclick_yes)
+        self.cancel_button_n_d.clicked.connect(self.onclick_no)
+        
+        #database variables
+        self.conn = sqlite3.connect("Cue.db")
+        self.c = self.conn.cursor()
+        
+    def onclick_yes(self):
+        self.c.execute("delete from Notes where id="+str(self.id))
+        self.conn.commit()
+        self.parent_data.update_notes()
+        self.close()
+        
+    def onclick_no(self):
+        self.close()
 
 class readmore_display(QMainWindow):
     
@@ -382,6 +542,7 @@ class readmore_display(QMainWindow):
     def re_translate(self):
         _translate = QtCore.QCoreApplication.translate
         self.content_label_s_rm.setText(_translate("Form", "{}".format(self.discription)))
+        
 
 class edit_display(QMainWindow):
     

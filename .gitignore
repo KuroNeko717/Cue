@@ -1,2 +1,7 @@
 *.db
 test.py
+output.py
+* - Copy.ui
+op.py
+*_later.ui
+*_.ui
