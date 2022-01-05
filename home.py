@@ -1,10 +1,9 @@
 #################### Importing Libraries #########################
 from xml.etree.ElementTree import ProcessingInstruction
-from PyQt5 import QtGui,QtCore, QtWebEngineWidgets
 from PyQt5 import uic, QtWidgets
-from PySide6.QtCore import QObject, Signal, Slot  
-from PyQt5.QtGui import QWindow
-from PyQt5.QtWidgets import QApplication, QDialog, QWidget, QMainWindow
+from PyQt5 import QtGui,QtCore
+from PyQt5 import  QtWebEngineWidgets
+from PyQt5.QtWidgets import QApplication, QDialog, QMainWindow
 import sqlite3
 from functools import partial
 import datetime
@@ -73,7 +72,7 @@ class home_screen(QMainWindow):
         timestamp = "Date: {} Time: {}".format(s_date,s_time)
         self.date_time_label_hs.setText(timestamp)
     
-    #Updating the entire MainWindow Homescreen 
+    #Updating the entire MainWindow Homescreen
     def update(self):
         
         for i in reversed(range(self.verticalLayout.count())): 
@@ -313,18 +312,13 @@ class create_schedule(QMainWindow):
         self.occurence_combobox_s_c.setCurrentText(self.data[3])
         self.description_plaintextedit_s_c.setPlainText(self.data[4])
         self.notification_on_checkbox_s_c.setChecked(bool(self.data[5]))
-<<<<<<< HEAD
         try:
             remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
             remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%H:%M:%S")
         except:
             remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%Y-%m-%d")
-            remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M:%S")  
+            remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M:%S") 
 
-=======
-        remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%Y-%m-%d")
-        remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M:%S")
->>>>>>> d9b3225bfb933ad58bfdcaa1b8b5db313fd8f361
         self.date_dateedit_s_c.setDate(QtCore.QDate.fromString(remind_date, 'yyyy-MM-dd'))
         self.time_timeedit_s_c.setTime(QtCore.QTime.fromString(remind_time, QtCore.Qt.TextDate))
     
@@ -349,9 +343,184 @@ class create_schedule(QMainWindow):
         self.parent_class.update()
         
 class vedit_schedule(QMainWindow):
+    
     def __init__(self,ui_file):
         super(vedit_schedule,self).__init__()
         uic.loadUi(ui_file,self)
+        
+        self.conn = sqlite3.connect('Cue.db')
+        self.c = self.conn.cursor()
+        
+        self.frames = []
+        
+        self.generate_schedule()
+        
+        self.search_button.clicked.connect(self.update)
+        
+    #Updating the entire MainWindow Homescreen
+    def update(self):
+        
+        for i in reversed(range(self.verticalLayout.count())): 
+            self.verticalLayout.itemAt(i).widget().setParent(None)
+            
+        self.frames = []
+        self.search_schedules()
+    
+    #getting the filtered values
+    def search_schedules(self):
+        search_text = self.search.toPlainText()
+        to_date = self.to_date_s_v.date()
+        from_date = self.from_date_s_v.date()
+        self.generate_schedule(search_text,to_date,from_date)
+    
+   #Generating/ Creating the schedules in Homescreen to display today's schedules
+    def generate_schedule(self,is_search=False ,search_text="", to_date=QtCore.QDate.currentDate(), from_date=QtCore.QDate.currentDate()):
+        
+        if not is_search:
+            data = self.c.execute("select * from Schedule")
+        else:
+            data = self.c.execute(f"select * from Schedule where create_date >= \"{from_date.toPyDate()}\" and create_date <= \"{to_date.toPyDate()}\" and name like \"{search_text}\"")
+        
+        for i in data:
+            temp = self._gen_schedule(i[1], i[4], i[0]) 
+            self.frames.append(temp)
+            self.verticalLayout.addWidget(temp)
+
+    #function for creating and giving values to the PyQt5 elements for each schedule in the comescreen
+    def _gen_schedule(self,time,title,id):
+        #Creating the PyQt5 elements such as frame, label, buttons etc.
+        frame = QtWidgets.QFrame()
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(frame.sizePolicy().hasHeightForWidth())
+        frame.setSizePolicy(sizePolicy)
+        frame.setMinimumSize(QtCore.QSize(0, 100))
+        frame.setStyleSheet("background-color: rgb(44, 47, 51);\n"
+        "color: rgb(255, 255, 255);")
+        frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        frame.setObjectName("frame")
+        time_label = QtWidgets.QLabel(frame)
+        time_label.setGeometry(QtCore.QRect(10, 20, 151, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        time_label.setFont(font)
+        time_label.setStyleSheet("color: rgb(213, 210, 255);")
+        time_label.setObjectName("time_label")
+        line_3 = QtWidgets.QFrame(frame)
+        line_3.setGeometry(QtCore.QRect(160, 0, 20, 91))
+        line_3.setFrameShape(QtWidgets.QFrame.VLine)
+        line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
+        line_3.setObjectName("line_3")
+        content_label = QtWidgets.QLabel(frame)
+        content_label.setGeometry(QtCore.QRect(180, 10, 431, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        content_label.setFont(font)
+        content_label.setStyleSheet("color: rgb(213, 210, 255);")
+        content_label.setObjectName("content_label")
+        readmore_button = QtWidgets.QPushButton(frame)
+        readmore_button.setGeometry(QtCore.QRect(380, 60, 121, 28))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        readmore_button.setFont(font)
+        readmore_button.setStyleSheet("color: rgb(213, 210, 255);")
+        readmore_button.setObjectName("readmore_button")
+        edit_button = QtWidgets.QPushButton(frame)
+        edit_button.setGeometry(QtCore.QRect(650, 30, 61, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        edit_button.setFont(font)
+        edit_button.setStyleSheet("color: rgb(213, 210, 255);")
+        edit_button.setObjectName("edit_button")
+        delete_button = QtWidgets.QPushButton(frame)
+        delete_button.setGeometry(QtCore.QRect(720, 30, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        delete_button.setFont(font)
+        delete_button.setStyleSheet("color: rgb(213, 210, 255);")
+        delete_button.setObjectName("delete_button")
+
+        #Assigning values to the schedule elements in the homescreen
+        _translate = QtCore.QCoreApplication.translate
+        time_label.setText(_translate("MainWindow", "{}".format(time)))
+        content_label.setText(_translate("MainWindow", "{}".format(title)))
+        readmore_button.setText(_translate("MainWindow", "Read More"))
+        edit_button.setText(_translate("MainWindow", "Edit"))
+        delete_button.setText(_translate("MainWindow", "Delete"))
+        content_label.setText(_translate("MainWindow", "{}".format(title)))
+        readmore_button.clicked.connect(partial(self.onclick_readMore, id))
+        edit_button.clicked.connect(partial(self.onclick_edit,id))
+        delete_button.clicked.connect(partial(self.onclick_delete,id))
+        
+        return frame
+    
+    #Function for when the delete button is clicked for a schedule in the homesreen
+    def onclick_delete(self,id):
+        x = self.c.execute("select * from Schedule where id = {}".format(id))
+        
+        for i in x:
+            x = i
+        
+        self.delete_dialogue_box = None
+        if self.delete_dialogue_box  is None:
+            self.delete_dialogue_box  = delete_display("Ui_files\\Schedules\\schedule_delete_dialogbox.ui",x[0],self)
+            self.delete_dialogue_box .show()
+        else:
+            self.delete_dialogue_box .close()
+            self.delete_dialogue_box  = None
+    
+    #Function for when the edit button is clicked for a schedule in the homesreen
+    def onclick_edit(self,id):
+        
+        data = self.c.execute("select * from Schedule where id = {}".format(id))
+        
+        for i in data:
+            data = i
+        
+        self.edit_form= None
+        if self.edit_form is None:
+            self.edit_form = create_schedule("Ui_files\\Schedules\\schedule_create_form.ui",self,type="edit",data=data)
+            self.edit_form.show()
+        else:
+            self.edit_form.close()
+            self.edit_form = None
+
+    #Function for when the read more button is clicked for a schedule in the homesreen
+    def onclick_readMore(self,id):
+        x = self.c.execute("select * from Schedule where id = {}".format(id))
+        
+        for i in x:
+            x = i
+
+        self.readmore_form= None
+        if self.readmore_form is None:
+            self.readmore_form = readmore_display("Ui_files\\Schedules\\schedule_readmore_form.ui",x[4])
+            self.readmore_form.show()
+        else:
+            self.readmore_form.close()
+            self.readmore_form = None
 
 class create_note(QMainWindow):
     
