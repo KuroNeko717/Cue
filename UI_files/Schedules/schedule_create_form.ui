@@ -364,6 +364,7 @@ color: rgb(255, 255, 255);</string>
      <property name="styleSheet">
       <string notr="true">color: rgb(203, 250, 255);</string>
      </property>
+<<<<<<< HEAD
      <property name="currentSection">
       <enum>QDateTimeEdit::HourSection</enum>
      </property>

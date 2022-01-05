@@ -313,6 +313,7 @@ class create_schedule(QMainWindow):
         self.occurence_combobox_s_c.setCurrentText(self.data[3])
         self.description_plaintextedit_s_c.setPlainText(self.data[4])
         self.notification_on_checkbox_s_c.setChecked(bool(self.data[5]))
+<<<<<<< HEAD
         try:
             remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
             remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S").strftime("%H:%M:%S")
@@ -320,6 +321,10 @@ class create_schedule(QMainWindow):
             remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%Y-%m-%d")
             remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M:%S")  
 
+=======
+        remind_date = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%Y-%m-%d")
+        remind_time = datetime.datetime.strptime(self.data[2] , "%Y-%m-%d %H:%M:%S.%f").strftime("%H:%M:%S")
+>>>>>>> d9b3225bfb933ad58bfdcaa1b8b5db313fd8f361
         self.date_dateedit_s_c.setDate(QtCore.QDate.fromString(remind_date, 'yyyy-MM-dd'))
         self.time_timeedit_s_c.setTime(QtCore.QTime.fromString(remind_time, QtCore.Qt.TextDate))
     
