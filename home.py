@@ -336,7 +336,6 @@ class create_schedule(QMainWindow):
             self.c.execute(f"insert into Schedule(name,create_date,occurance,discription,is_notify) values(\"{name}\",\"{remind_datetime}\",\"{occurance}\",\"{discription}\",\"{is_notification}\")")
         elif self.type == "edit":
             self.c.execute(f"update Schedule set name=\"{name}\" , create_date=\"{remind_datetime}\", occurance=\"{occurance}\", discription=\"{discription}\", is_notify=\"{is_notification}\"  WHERE id = {self.data[0]}")
-            print(self.data[0])
         
         self.conn.commit()
         self.close()
@@ -396,8 +395,7 @@ class vedit_schedule(QMainWindow):
         sizePolicy.setHeightForWidth(frame.sizePolicy().hasHeightForWidth())
         frame.setSizePolicy(sizePolicy)
         frame.setMinimumSize(QtCore.QSize(0, 100))
-        frame.setStyleSheet("background-color: rgb(44, 47, 51);\n"
-        "color: rgb(255, 255, 255);")
+        frame.setStyleSheet("background-color: rgb(44, 47, 51);\n" "color: rgb(255, 255, 255);")
         frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         frame.setFrameShadow(QtWidgets.QFrame.Raised)
         frame.setObjectName("frame")
@@ -665,6 +663,21 @@ class readmore_display_notes(QMainWindow):
         self.label_date.setText(_translate("Form", "Date Created: "+"{}".format(self.date)))
         self.label_title.setText(_translate("Form", "{}".format(self.title)))
         self.delete_button_notes.clicked.connect(partial(self.onclick_delete_notes,id))
+        self.edit_button_notes.clicked.connect(partial(self.onclick_edit_notes,id))
+
+    def onclick_edit_notes(self,id):
+        
+        x = self.c.execute(f"select * from Notes where id =\"{id}\"")
+        
+        for i in x:
+            data = i
+            
+        self.edit_dialogue_box = None
+        if self.edit_dialogue_box  is None:
+            self.edit_dialogue_box  = edit_display("Ui_files\\Notes\\notes_edit_form.ui",data,self,self.parent_data)
+        else:
+            self.edit_dialogue_box.close()
+            self.edit_dialogue_box  = None
 
 #Function for when the delete button is clicked for a note
     def onclick_delete_notes(self,id):
@@ -680,7 +693,42 @@ class readmore_display_notes(QMainWindow):
             self.delete_dialogue_box.close()
             self.delete_dialogue_box  = None
 
-
+class edit_display(QMainWindow):
+    
+    def __init__(self,ui_file,data,parent_data,super_parent):
+        super(edit_display,self).__init__()
+        uic.loadUi(ui_file,self)
+        self.parent_data = parent_data
+        self.super_parent = super_parent
+        self.data = data
+        self.re_translate()
+        
+        self.conn = sqlite3.connect("Cue.db")
+        self.c = self.conn.cursor()
+        
+        self.id = data[0]
+        self.save_button_n_e.clicked.connect(self.onclick_yes)
+        self.delete_button_n_e.clicked.connect(self.onclick_no)
+        
+        self.show()
+        
+    def onclick_yes(self):
+        
+        title_text = self.title_textedit_n_e.toPlainText()
+        content_text = self.content_textedit_n_e.toPlainText()
+        self.c.execute(f"update Notes set title =\"{title_text}\", discription = \"{content_text}\" where id = \"{self.data[0]}\"")
+        self.conn.commit()
+        self.super_parent.update_notes()
+        self.parent_data.close()
+        self.close()
+        
+    def onclick_no(self):
+        self.close()
+        
+    def re_translate(self):
+        _translate = QtCore.QCoreApplication.translate
+        self.title_textedit_n_e.setText(self.data[1])
+        self.content_textedit_n_e.setText(self.data[3])
 
 class delete_notes_dialog(QDialog):
     
@@ -724,20 +772,6 @@ class readmore_display(QMainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.content_label_s_rm.setText(_translate("Form", "{}".format(self.discription)))
         
-
-class edit_display(QMainWindow):
-    
-    def __init__(self,ui_file,data,parent_data):
-        super(edit_display,self).__init__()
-        uic.loadUi(ui_file,self)
-        self.parent_data = parent_data
-        self.data = data
-        self.re_translate()
-        
-    def re_translate(self):
-        _translate = QtCore.QCoreApplication.translate
-        self.name_textedit_s_e.setText(self.data[1])
-        #self.date_dateedit_s_e.set
 
 class delete_display(QDialog):
     

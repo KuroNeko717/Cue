@@ -109,7 +109,7 @@ color: rgb(255, 242, 167);</string>
      <string notr="true">color: rgb(255, 244, 156);</string>
     </property>
     <property name="text">
-     <string>Delete</string>
+     <string>Cancel</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="title_textedit_n_e">
